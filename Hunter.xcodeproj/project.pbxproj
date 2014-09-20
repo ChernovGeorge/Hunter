@@ -14,6 +14,14 @@
 		A24654CB19B3711C007738AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A24654C919B3711C007738AB /* Main.storyboard */; };
 		A24654CD19B3711C007738AB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A24654CC19B3711C007738AB /* Images.xcassets */; };
 		A24654D919B3711C007738AB /* HunterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24654D819B3711C007738AB /* HunterTests.swift */; };
+		A24654EE19B4F06B007738AB /* PathwayCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24654ED19B4F06B007738AB /* PathwayCreator.swift */; };
+		A262790719CB6B5F001FADD1 /* mouseScore.png in Resources */ = {isa = PBXBuildFile; fileRef = A262790619CB6B5F001FADD1 /* mouseScore.png */; };
+		A2C6362819C37BE900D745C7 /* bgFirst.png in Resources */ = {isa = PBXBuildFile; fileRef = A2C6362319C37BE900D745C7 /* bgFirst.png */; };
+		A2C6362919C37BE900D745C7 /* bottomRight.png in Resources */ = {isa = PBXBuildFile; fileRef = A2C6362419C37BE900D745C7 /* bottomRight.png */; };
+		A2C6362A19C37BE900D745C7 /* firstCat.png in Resources */ = {isa = PBXBuildFile; fileRef = A2C6362519C37BE900D745C7 /* firstCat.png */; };
+		A2C6362B19C37BE900D745C7 /* firstMouse.png in Resources */ = {isa = PBXBuildFile; fileRef = A2C6362619C37BE900D745C7 /* firstMouse.png */; };
+		A2C6362C19C37BE900D745C7 /* gameBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = A2C6362719C37BE900D745C7 /* gameBackground.png */; };
+		A2C6363E19C6294E00D745C7 /* mouse.atlas in Resources */ = {isa = PBXBuildFile; fileRef = A2C6363D19C6294E00D745C7 /* mouse.atlas */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +46,14 @@
 		A24654D219B3711C007738AB /* HunterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HunterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A24654D719B3711C007738AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A24654D819B3711C007738AB /* HunterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HunterTests.swift; sourceTree = "<group>"; };
+		A24654ED19B4F06B007738AB /* PathwayCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathwayCreator.swift; sourceTree = "<group>"; };
+		A262790619CB6B5F001FADD1 /* mouseScore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mouseScore.png; sourceTree = "<group>"; };
+		A2C6362319C37BE900D745C7 /* bgFirst.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bgFirst.png; sourceTree = "<group>"; };
+		A2C6362419C37BE900D745C7 /* bottomRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bottomRight.png; sourceTree = "<group>"; };
+		A2C6362519C37BE900D745C7 /* firstCat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = firstCat.png; sourceTree = "<group>"; };
+		A2C6362619C37BE900D745C7 /* firstMouse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = firstMouse.png; sourceTree = "<group>"; };
+		A2C6362719C37BE900D745C7 /* gameBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gameBackground.png; sourceTree = "<group>"; };
+		A2C6363D19C6294E00D745C7 /* mouse.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = mouse.atlas; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +95,9 @@
 		A24654BE19B3711C007738AB /* Hunter */ = {
 			isa = PBXGroup;
 			children = (
+				A2C6363D19C6294E00D745C7 /* mouse.atlas */,
+				A24654ED19B4F06B007738AB /* PathwayCreator.swift */,
+				A24654E219B37672007738AB /* Images */,
 				A24654C119B3711C007738AB /* AppDelegate.swift */,
 				A24654C319B3711C007738AB /* GameScene.sks */,
 				A24654C519B3711C007738AB /* GameScene.swift */,
@@ -113,6 +132,19 @@
 				A24654D719B3711C007738AB /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A24654E219B37672007738AB /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				A262790619CB6B5F001FADD1 /* mouseScore.png */,
+				A2C6362319C37BE900D745C7 /* bgFirst.png */,
+				A2C6362419C37BE900D745C7 /* bottomRight.png */,
+				A2C6362519C37BE900D745C7 /* firstCat.png */,
+				A2C6362619C37BE900D745C7 /* firstMouse.png */,
+				A2C6362719C37BE900D745C7 /* gameBackground.png */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,6 +230,13 @@
 				A24654CD19B3711C007738AB /* Images.xcassets in Resources */,
 				A24654C419B3711C007738AB /* GameScene.sks in Resources */,
 				A24654CB19B3711C007738AB /* Main.storyboard in Resources */,
+				A2C6362A19C37BE900D745C7 /* firstCat.png in Resources */,
+				A2C6362819C37BE900D745C7 /* bgFirst.png in Resources */,
+				A2C6362919C37BE900D745C7 /* bottomRight.png in Resources */,
+				A2C6362B19C37BE900D745C7 /* firstMouse.png in Resources */,
+				A2C6363E19C6294E00D745C7 /* mouse.atlas in Resources */,
+				A262790719CB6B5F001FADD1 /* mouseScore.png in Resources */,
+				A2C6362C19C37BE900D745C7 /* gameBackground.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,6 +255,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A24654C619B3711C007738AB /* GameScene.swift in Sources */,
+				A24654EE19B4F06B007738AB /* PathwayCreator.swift in Sources */,
 				A24654C819B3711C007738AB /* GameViewController.swift in Sources */,
 				A24654C219B3711C007738AB /* AppDelegate.swift in Sources */,
 			);
@@ -335,6 +375,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Hunter/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -348,6 +389,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Hunter/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -409,6 +451,7 @@
 				A24654DE19B3711C007738AB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A24654DF19B3711C007738AB /* Build configuration list for PBXNativeTarget "HunterTests" */ = {
 			isa = XCConfigurationList;
@@ -417,6 +460,7 @@
 				A24654E119B3711C007738AB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
