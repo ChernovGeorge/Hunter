@@ -128,9 +128,8 @@ class GameScene: SKScene {
             {
                 if (node.name == "mouse")
                 {
-                    gameScore++;
-                    gameScoreLabel.text = "000" + gameScore.description;
-                    gameScoreLabelShadow.text = "000" + gameScore.description;
+                    gameScore++
+                    showScore()
                 }
                 
                 if (node.name == "bg")
@@ -223,6 +222,46 @@ class GameScene: SKScene {
         mouseScoreImg.zPosition = 10;
         
         self.addChild(mouseScoreImg)
+    }
+    
+    func showScore()
+    {
+        var countOfDigits = countElements(gameScore.description)
+        var score = "";
+        
+        
+        if(countOfDigits == 1)
+        {
+            score =  "000" + gameScore.description
+        }
+        
+        if(countOfDigits == 2)
+        {
+            score = "00" + gameScore.description
+        }
+        
+        if(countOfDigits == 3)
+        {
+            score =  "0" + gameScore.description
+        }
+        
+        if(countOfDigits == 4)
+        {
+            score = gameScore.description
+        }
+        
+        if(countOfDigits > 4)
+        {
+            score = "Too Much!"
+            gameScoreLabel.fontSize = 35
+            gameScoreLabelShadow.fontSize = 35
+            
+            gameScoreLabelShadow.position = CGPoint(x: sceneSize.x / 2 + 396, y: sceneSize.y - 61)
+            gameScoreLabel.position = CGPoint(x: sceneSize.x / 2 + 395, y: sceneSize.y - 60)
+        }
+        
+        gameScoreLabel.text = score
+        gameScoreLabelShadow.text = score
     }
     
     func drawBackgroundFirst()
