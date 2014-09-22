@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+import AVFoundation
 
 class GameScene: SKScene {
     
@@ -14,16 +15,30 @@ class GameScene: SKScene {
     var sceneSize: CGPoint = CGPoint()
     let textureAtlas = SKTextureAtlas(named:"mouse.atlas")
     
-    var gameScoreLabel = SKLabelNode();
-    var gameScoreLabelShadow = SKLabelNode();
-    var gameScore = 0;
+    var gameScoreLabel = SKLabelNode()
+    var gameScoreLabelShadow = SKLabelNode()
+    var gameScore = 0
     
-    var spriteArray = Array<SKTexture>();
+    var spriteArray = Array<SKTexture>()
     
-    var repeatAction = SKAction();
-    var animateAction = SKAction();
+    var repeatAction = SKAction()
+    var animateAction = SKAction()
+    
+    var audioPlayer = AVAudioPlayer()
     
     override func didMoveToView(view: SKView) {
+        
+        println("didMoveToView")
+        
+        var alertSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("escapedMouse", ofType: "mp3")!)
+        
+        // Removed deprecated use of AVAudioSessionDelegate protocol
+        AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error: nil)
+        AVAudioSession.sharedInstance().setActive(true, error: nil)
+        
+        var error:NSError?
+        audioPlayer = AVAudioPlayer(contentsOfURL: alertSound, error: &error)
+        audioPlayer.volume = 0.3
         
         sceneSize = CGPoint(x: view.bounds.size.width, y: view.bounds.size.height)
         //showFirstScreen()
@@ -98,8 +113,8 @@ class GameScene: SKScene {
     
     func getDuration() -> NSTimeInterval
     {
-        var limitedRandom:Int32 = Int32(arc4random() % UInt32(7));
-        return NSTimeInterval((limitedRandom < 3) ? (limitedRandom + 3): limitedRandom);
+        var limitedRandom:Int32 = Int32(arc4random() % UInt32(5));
+        return NSTimeInterval((limitedRandom < 2) ? (limitedRandom + 2): limitedRandom);
     }
     
     func startMoving()
@@ -113,8 +128,21 @@ class GameScene: SKScene {
         var act = SKAction.followPath(bp.CGPath, asOffset:false, orientToPath:true, duration: duration);
         self.childNodeWithName("mouse")?.runAction(act, startMoving)
     }
-
     
+    func isCloseToMouse(mousePosition: CGPoint, touchPosition: CGPoint) -> Bool
+    {
+        var x = abs(mousePosition.x - touchPosition.x)
+        var y = abs(mousePosition.y - touchPosition.y)
+        
+        if(x > 0 && x < 200 && y > 0 && y < 200)
+        {
+            return true;
+        }
+        
+        return false;
+    }
+    
+
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
         
         for touch: AnyObject in touches {
@@ -136,25 +164,27 @@ class GameScene: SKScene {
                 
                 if (node.name == "bg")
                 {
-                    //self.runAction(SKAction.playSoundFileNamed("escapedMouse.mp3", waitForCompletion: false))
                     
                     self.childNodeWithName("mouse")?.removeAllActions()
                     
                     var pathwayCreator = PathwayCreator(startPoint: CGPoint(x: 1000, y: 600), countOfPathes: 8)
                     var bp:UIBezierPath = pathwayCreator.GetPath()
                     
-                    
                     var mousePosition = self.childNodeWithName("mouse")?.position;
+                    
+                    if(isCloseToMouse(mousePosition!, touchPosition:location))
+                    {
+                        mouseEscapedEffectPlay()
+                    }
                     
                     var pathBackToHole = CGPathCreateMutable();
                     CGPathMoveToPoint(pathBackToHole, nil, (mousePosition?)!.x, (mousePosition?)!.y)
                     CGPathAddLineToPoint(pathBackToHole, nil, 1000, 600)
                     
-                    var act1 = SKAction.followPath(pathBackToHole, asOffset: false, orientToPath: true, duration: 0.8)
+                    var act1 = SKAction.followPath(pathBackToHole, asOffset: false, orientToPath: true, duration: 0.3)
                     var act2 = SKAction.followPath(bp.CGPath, asOffset:false, orientToPath:true, duration: getDuration());
                     
                     var seq = SKAction.sequence([act1, act2])
-                    
                     
                     self.childNodeWithName("mouse")?.runAction(repeatAction)
                     self.childNodeWithName("mouse")?.runAction(seq, startMoving)
@@ -162,6 +192,12 @@ class GameScene: SKScene {
                 }
             }
         }
+    }
+    
+    func mouseEscapedEffectPlay()
+    {
+        audioPlayer.prepareToPlay()
+        audioPlayer.play()
     }
     
     func drawBackground()
