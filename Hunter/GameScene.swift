@@ -26,6 +26,9 @@ class GameScene: SKScene {
     
     var audioPlayer = AVAudioPlayer()
     
+    // the location of the hole, the place where the mouse go from
+    let holeLocation = CGPoint(x: 1200, y: 600)
+    
     override func didMoveToView(view: SKView) {
         
         println("didMoveToView")
@@ -129,7 +132,9 @@ class GameScene: SKScene {
         self.childNodeWithName("mouse")?.runAction(act, startMoving)
     }
     
-    func isCloseToMouse(mousePosition: CGPoint, touchPosition: CGPoint) -> Bool
+    
+    // is user touch close to mouse
+    func isTouchCloseToMouse(mousePosition: CGPoint, touchPosition: CGPoint) -> Bool
     {
         var x = abs(mousePosition.x - touchPosition.x)
         var y = abs(mousePosition.y - touchPosition.y)
@@ -156,7 +161,7 @@ class GameScene: SKScene {
             {
                 if (node.name == "mouse")
                 {
-                    self.runAction(SKAction.playSoundFileNamed("caughtMouse.mp3", waitForCompletion: false))
+                    mouseCaughtEffectPlay()
                     
                     gameScore++
                     showScore()
@@ -167,27 +172,27 @@ class GameScene: SKScene {
                     
                     self.childNodeWithName("mouse")?.removeAllActions()
                     
-                    var pathwayCreator = PathwayCreator(startPoint: CGPoint(x: 1000, y: 600), countOfPathes: 8)
+                    var pathwayCreator = PathwayCreator(startPoint: holeLocation, countOfPathes: 8)
                     var bp:UIBezierPath = pathwayCreator.GetPath()
                     
                     var mousePosition = self.childNodeWithName("mouse")?.position;
                     
-                    if(isCloseToMouse(mousePosition!, touchPosition:location))
+                    if(isTouchCloseToMouse(mousePosition!, touchPosition:location))
                     {
                         mouseEscapedEffectPlay()
                     }
                     
                     var pathBackToHole = CGPathCreateMutable();
                     CGPathMoveToPoint(pathBackToHole, nil, (mousePosition?)!.x, (mousePosition?)!.y)
-                    CGPathAddLineToPoint(pathBackToHole, nil, 1000, 600)
+                    CGPathAddLineToPoint(pathBackToHole, nil, holeLocation.x, holeLocation.y)
                     
                     var act1 = SKAction.followPath(pathBackToHole, asOffset: false, orientToPath: true, duration: 0.3)
                     var act2 = SKAction.followPath(bp.CGPath, asOffset:false, orientToPath:true, duration: getDuration());
                     
-                    var seq = SKAction.sequence([act1, act2])
+                    var sequence = SKAction.sequence([act1, act2])
                     
                     self.childNodeWithName("mouse")?.runAction(repeatAction)
-                    self.childNodeWithName("mouse")?.runAction(seq, startMoving)
+                    self.childNodeWithName("mouse")?.runAction(sequence, startMoving)
                     
                 }
             }
@@ -198,6 +203,11 @@ class GameScene: SKScene {
     {
         audioPlayer.prepareToPlay()
         audioPlayer.play()
+    }
+    
+    func mouseCaughtEffectPlay()
+    {
+        self.runAction(SKAction.playSoundFileNamed("caughtMouse.mp3", waitForCompletion: false))
     }
     
     func drawBackground()
