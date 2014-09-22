@@ -128,12 +128,16 @@ class GameScene: SKScene {
             {
                 if (node.name == "mouse")
                 {
+                    self.runAction(SKAction.playSoundFileNamed("caughtMouse.mp3", waitForCompletion: false))
+                    
                     gameScore++
                     showScore()
                 }
                 
                 if (node.name == "bg")
                 {
+                    //self.runAction(SKAction.playSoundFileNamed("escapedMouse.mp3", waitForCompletion: false))
+                    
                     self.childNodeWithName("mouse")?.removeAllActions()
                     
                     var pathwayCreator = PathwayCreator(startPoint: CGPoint(x: 1000, y: 600), countOfPathes: 8)
