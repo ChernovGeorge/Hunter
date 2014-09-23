@@ -28,10 +28,10 @@ class GameScene: SKScene {
     
     // the location of the hole, the place where the mouse go from
     let holeLocation = CGPoint(x: 1200, y: 600)
+    let appName = "Sport Cat"
+    let commonFont = "Helvetica Neue Light"
     
     override func didMoveToView(view: SKView) {
-        
-        println("didMoveToView")
         
         var alertSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("escapedMouse", ofType: "mp3")!)
         
@@ -44,37 +44,61 @@ class GameScene: SKScene {
         audioPlayer.volume = 0.3
         
         sceneSize = CGPoint(x: view.bounds.size.width, y: view.bounds.size.height)
-        //showFirstScreen()
-        showSecondScreen()
+        showFirstScreen()
+        //showSecondScreen()
     }
     
     func showFirstScreen()
     {
-        drawBackgroundFirst()
+        drawBackground()
         
         self.backgroundColor = SKColor.whiteColor()
         
         var bottomRight = SKSpriteNode(imageNamed: "bottomRight")
         bottomRight.anchorPoint = CGPoint(x: 1, y: 0)
         bottomRight.position = CGPoint(x: sceneSize.x, y: 0)
-        //bottomRight.size = CGSize(width: sceneSize.x - 100, height: sceneSize.y - 100)
         bottomRight.name = "bottomRight"
         self.addChild(bottomRight)
         
-        //var labelStart = SKLabelNode()
+        var catSportShadow = SKLabelNode()
+        catSportShadow.text = appName
+        catSportShadow.fontColor = SKColor(red: CGFloat(0), green: CGFloat(0), blue: CGFloat(0), alpha: 0.15)
+        catSportShadow.fontSize = 90;
+        catSportShadow.fontName = commonFont
+        catSportShadow.position = CGPoint(x: 641, y: 569)
         
-        //labelStart.text = "START"
+        self.addChild(catSportShadow)
         
-        //bottomRight.anchorPoint = CGPoint(x: 1, y: 0)
-        //bottomRight.position = CGPoint(x: sceneSize.x, y: 0)
-        //bottomRight.size = CGSize(width: sceneSize.x - 100, height: sceneSize.y - 100)
-        //bottomRight.name = "bottomRight"
-        //self.addChild(bottomRight)
+        var catSport = SKLabelNode()
+        catSport.text = appName
+        catSport.fontColor = SKColor(red: CGFloat(164/255.0), green: CGFloat(85/255.0), blue: CGFloat(164/255.0), alpha: 1)
+        catSport.fontSize = 90;
+        catSport.fontName = commonFont
+        catSport.position = CGPoint(x: 640, y: 570)
+        
+        self.addChild(catSport)
+        
+        var startLabelShadow = SKLabelNode()
+        startLabelShadow.text = "START"
+        startLabelShadow.fontColor = SKColor(red: CGFloat(250/255.0), green: CGFloat(165/255.0), blue: CGFloat(70/255.0), alpha: 1)
+        startLabelShadow.fontSize = 80;
+        startLabelShadow.fontName = commonFont
+        startLabelShadow.position = CGPoint(x: 641, y: 389)
+        
+        self.addChild(startLabelShadow)
+        
+        var startLabel = SKLabelNode()
+        startLabel.text = "START"
+        startLabel.fontColor = SKColor(red: CGFloat(250/255.0), green: CGFloat(165/255.0), blue: CGFloat(70/255.0), alpha: 1)
+        startLabel.fontSize = 80;
+        startLabel.fontName = commonFont
+        startLabel.position = CGPoint(x: 640, y: 390)
+        
+        self.addChild(startLabel)
         
         var firstMouse = SKSpriteNode(imageNamed: "firstMouse")
         firstMouse.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        firstMouse.position = CGPoint(x: sceneSize.y - 300, y: 250)
-        //bottomRight.size = CGSize(width: sceneSize.x - 100, height: sceneSize.y - 100)
+        firstMouse.position = CGPoint(x: sceneSize.y - 115, y: 175)
         firstMouse.name = "firstMouse"
         self.addChild(firstMouse)
         
@@ -83,6 +107,15 @@ class GameScene: SKScene {
         firstCat.position = CGPoint(x: 0, y: sceneSize.y)
         firstCat.name = "firstCat"
         self.addChild(firstCat)
+        
+        var increaseStart = SKAction.scaleTo(1.03, duration: 0.2)
+        var reduceStart = SKAction.scaleTo(0.97, duration: 0.6)
+        
+        var sequence = SKAction.sequence([increaseStart, reduceStart])
+        
+        startLabelShadow.runAction(SKAction.repeatActionForever(sequence))
+        startLabel.runAction(SKAction.repeatActionForever(sequence))
+        
     }
     
     func showSecondScreen()
@@ -214,7 +247,6 @@ class GameScene: SKScene {
     {
         var background = SKSpriteNode(imageNamed: "gameBackground")
         background.anchorPoint = CGPoint(x: 0, y: 0)
-        //background.size = CGSize(width: sceneSize.x, height: sceneSize.y)
         background.name = "bg"
         self.addChild(background)
     }
@@ -227,7 +259,7 @@ class GameScene: SKScene {
         gameNameLabelShadow.fontColor = SKColor(red: CGFloat(0), green: CGFloat(0), blue: CGFloat(0), alpha: 0.15)
         gameNameLabelShadow.text = "Mouser"
         gameNameLabelShadow.fontSize = 60;
-        gameNameLabelShadow.fontName = "Helvetica Neue"
+        gameNameLabelShadow.fontName = commonFont
         gameNameLabelShadow.position = CGPoint(x: sceneSize.x / 2 + 1, y: sceneSize.y - 61)
         gameNameLabelShadow.zPosition = 10;
         
@@ -237,7 +269,7 @@ class GameScene: SKScene {
         gameNameLabel.fontColor = SKColor(red: CGFloat(164/255.0), green: CGFloat(85/255.0), blue: CGFloat(164/255.0), alpha: 1)
         gameNameLabel.text = "Mouser"
         gameNameLabel.fontSize = 60;
-        gameNameLabel.fontName = "Helvetica Neue"
+        gameNameLabel.fontName = commonFont
         gameNameLabel.position = CGPoint(x: sceneSize.x / 2, y: sceneSize.y - 60)
         gameNameLabel.zPosition = 10;
         
@@ -250,7 +282,7 @@ class GameScene: SKScene {
         gameScoreLabelShadow.fontColor = SKColor(red: CGFloat(0), green: CGFloat(0), blue: CGFloat(0), alpha: 0.15)
         gameScoreLabelShadow.text = "0000"
         gameScoreLabelShadow.fontSize = 50;
-        gameScoreLabelShadow.fontName = "Helvetica Neue"
+        gameScoreLabelShadow.fontName = commonFont
         gameScoreLabelShadow.position = CGPoint(x: sceneSize.x / 2 + 371, y: sceneSize.y - 61)
         gameScoreLabelShadow.zPosition = 10;
         
@@ -260,7 +292,7 @@ class GameScene: SKScene {
         gameScoreLabel.fontColor = SKColor(red: CGFloat(164/255.0), green: CGFloat(85/255.0), blue: CGFloat(164/255.0), alpha: 1)
         gameScoreLabel.text = "0000"
         gameScoreLabel.fontSize = 50;
-        gameScoreLabel.fontName = "Helvetica Neue"
+        gameScoreLabel.fontName = commonFont
         gameScoreLabel.position = CGPoint(x: sceneSize.x / 2 + 370, y: sceneSize.y - 60)
         gameScoreLabel.zPosition = 10;
         
@@ -312,15 +344,6 @@ class GameScene: SKScene {
         
         gameScoreLabel.text = score
         gameScoreLabelShadow.text = score
-    }
-    
-    func drawBackgroundFirst()
-    {
-        var background = SKSpriteNode(imageNamed: "bgFirst")
-        background.anchorPoint = CGPoint(x: 0, y: 0)
-        background.size = CGSize(width: sceneSize.x, height: sceneSize.y)
-        background.name = "bgFirst"
-        self.addChild(background)
     }
 
 }
