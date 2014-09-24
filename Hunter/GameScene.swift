@@ -26,6 +26,8 @@ class GameScene: SKScene {
     
     var audioPlayer = AVAudioPlayer()
     
+    var isFirstScreen = true;
+    
     // the location of the hole, the place where the mouse go from
     let holeLocation = CGPoint(x: 1200, y: 600)
     let appName = "Sport Cat"
@@ -50,6 +52,8 @@ class GameScene: SKScene {
     
     func showFirstScreen()
     {
+        isFirstScreen = true;
+        
         drawBackground()
         
         self.backgroundColor = SKColor.whiteColor()
@@ -60,14 +64,7 @@ class GameScene: SKScene {
         bottomRight.name = "bottomRight"
         self.addChild(bottomRight)
         
-        var catSportShadow = SKLabelNode()
-        catSportShadow.text = appName
-        catSportShadow.fontColor = SKColor(red: CGFloat(0), green: CGFloat(0), blue: CGFloat(0), alpha: 0.15)
-        catSportShadow.fontSize = 90;
-        catSportShadow.fontName = commonFont
-        catSportShadow.position = CGPoint(x: 641, y: 569)
         
-        self.addChild(catSportShadow)
         
         var catSport = SKLabelNode()
         catSport.text = appName
@@ -76,16 +73,8 @@ class GameScene: SKScene {
         catSport.fontName = commonFont
         catSport.position = CGPoint(x: 640, y: 570)
         
+        self.addChild(LabelWithShadow().getLabelWithShadow(catSport))
         self.addChild(catSport)
-        
-        var startLabelShadow = SKLabelNode()
-        startLabelShadow.text = "START"
-        startLabelShadow.fontColor = SKColor(red: CGFloat(250/255.0), green: CGFloat(165/255.0), blue: CGFloat(70/255.0), alpha: 1)
-        startLabelShadow.fontSize = 80;
-        startLabelShadow.fontName = commonFont
-        startLabelShadow.position = CGPoint(x: 641, y: 389)
-        
-        self.addChild(startLabelShadow)
         
         var startLabel = SKLabelNode()
         startLabel.text = "START"
@@ -93,7 +82,10 @@ class GameScene: SKScene {
         startLabel.fontSize = 80;
         startLabel.fontName = commonFont
         startLabel.position = CGPoint(x: 640, y: 390)
+
+        var startLabelShadow = LabelWithShadow().getLabelWithShadow(startLabel)
         
+        self.addChild(startLabelShadow)
         self.addChild(startLabel)
         
         var firstMouse = SKSpriteNode(imageNamed: "firstMouse")
@@ -197,36 +189,37 @@ class GameScene: SKScene {
                     mouseCaughtEffectPlay()
                     
                     gameScore++
-                    showScore()
+                    changeScore()
                 }
                 
                 if (node.name == "bg")
                 {
-                    
-                    self.childNodeWithName("mouse")?.removeAllActions()
-                    
-                    var pathwayCreator = PathwayCreator(startPoint: holeLocation, countOfPathes: 8)
-                    var bp:UIBezierPath = pathwayCreator.GetPath()
-                    
-                    var mousePosition = self.childNodeWithName("mouse")?.position;
-                    
-                    if(isTouchCloseToMouse(mousePosition!, touchPosition:location))
+                    if(!isFirstScreen)
                     {
-                        mouseEscapedEffectPlay()
+                        self.childNodeWithName("mouse")?.removeAllActions()
+                    
+                        var pathwayCreator = PathwayCreator(startPoint: holeLocation, countOfPathes: 8)
+                        var bp:UIBezierPath = pathwayCreator.GetPath()
+                    
+                        var mousePosition = self.childNodeWithName("mouse")?.position;
+                    
+                        if(isTouchCloseToMouse(mousePosition!, touchPosition:location))
+                        {
+                            mouseEscapedEffectPlay()
+                        }
+                    
+                        var pathBackToHole = CGPathCreateMutable();
+                        CGPathMoveToPoint(pathBackToHole, nil, (mousePosition?)!.x, (mousePosition?)!.y)
+                        CGPathAddLineToPoint(pathBackToHole, nil, holeLocation.x, holeLocation.y)
+                    
+                        var act1 = SKAction.followPath(pathBackToHole, asOffset: false, orientToPath: true, duration: 0.3)
+                        var act2 = SKAction.followPath(bp.CGPath, asOffset:false, orientToPath:true, duration: getDuration());
+                    
+                        var sequence = SKAction.sequence([act1, act2])
+                    
+                        self.childNodeWithName("mouse")?.runAction(repeatAction)
+                        self.childNodeWithName("mouse")?.runAction(sequence, startMoving)
                     }
-                    
-                    var pathBackToHole = CGPathCreateMutable();
-                    CGPathMoveToPoint(pathBackToHole, nil, (mousePosition?)!.x, (mousePosition?)!.y)
-                    CGPathAddLineToPoint(pathBackToHole, nil, holeLocation.x, holeLocation.y)
-                    
-                    var act1 = SKAction.followPath(pathBackToHole, asOffset: false, orientToPath: true, duration: 0.3)
-                    var act2 = SKAction.followPath(bp.CGPath, asOffset:false, orientToPath:true, duration: getDuration());
-                    
-                    var sequence = SKAction.sequence([act1, act2])
-                    
-                    self.childNodeWithName("mouse")?.runAction(repeatAction)
-                    self.childNodeWithName("mouse")?.runAction(sequence, startMoving)
-                    
                 }
             }
         }
@@ -255,16 +248,6 @@ class GameScene: SKScene {
     func drawGameName()
     {
         
-        var gameNameLabelShadow = SKLabelNode();
-        gameNameLabelShadow.fontColor = SKColor(red: CGFloat(0), green: CGFloat(0), blue: CGFloat(0), alpha: 0.15)
-        gameNameLabelShadow.text = "Mouser"
-        gameNameLabelShadow.fontSize = 60;
-        gameNameLabelShadow.fontName = commonFont
-        gameNameLabelShadow.position = CGPoint(x: sceneSize.x / 2 + 1, y: sceneSize.y - 61)
-        gameNameLabelShadow.zPosition = 10;
-        
-        self.addChild(gameNameLabelShadow)
-        
         var gameNameLabel = SKLabelNode();
         gameNameLabel.fontColor = SKColor(red: CGFloat(164/255.0), green: CGFloat(85/255.0), blue: CGFloat(164/255.0), alpha: 1)
         gameNameLabel.text = "Mouser"
@@ -273,20 +256,12 @@ class GameScene: SKScene {
         gameNameLabel.position = CGPoint(x: sceneSize.x / 2, y: sceneSize.y - 60)
         gameNameLabel.zPosition = 10;
         
+        self.addChild(LabelWithShadow().getLabelWithShadow(gameNameLabel))
         self.addChild(gameNameLabel)
     }
     
     func drawScore()
     {
-        gameScoreLabelShadow = SKLabelNode();
-        gameScoreLabelShadow.fontColor = SKColor(red: CGFloat(0), green: CGFloat(0), blue: CGFloat(0), alpha: 0.15)
-        gameScoreLabelShadow.text = "0000"
-        gameScoreLabelShadow.fontSize = 50;
-        gameScoreLabelShadow.fontName = commonFont
-        gameScoreLabelShadow.position = CGPoint(x: sceneSize.x / 2 + 371, y: sceneSize.y - 61)
-        gameScoreLabelShadow.zPosition = 10;
-        
-        self.addChild(gameScoreLabelShadow)
         
         gameScoreLabel = SKLabelNode();
         gameScoreLabel.fontColor = SKColor(red: CGFloat(164/255.0), green: CGFloat(85/255.0), blue: CGFloat(164/255.0), alpha: 1)
@@ -296,6 +271,9 @@ class GameScene: SKScene {
         gameScoreLabel.position = CGPoint(x: sceneSize.x / 2 + 370, y: sceneSize.y - 60)
         gameScoreLabel.zPosition = 10;
         
+        gameScoreLabelShadow = LabelWithShadow().getLabelWithShadow(gameScoreLabel)
+        
+        self.addChild(gameScoreLabelShadow)
         self.addChild(gameScoreLabel)
         
         var mouseScoreImg = SKSpriteNode(imageNamed: "mouseScore");
@@ -306,7 +284,7 @@ class GameScene: SKScene {
         self.addChild(mouseScoreImg)
     }
     
-    func showScore()
+    func changeScore()
     {
         var countOfDigits = countElements(gameScore.description)
         var score = "";
