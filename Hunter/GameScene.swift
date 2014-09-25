@@ -33,6 +33,19 @@ class GameScene: SKScene {
     let appName = "Sport Cat"
     let commonFont = "Helvetica Neue Light"
     
+    
+    // first screen elements
+    
+    var bottomRight = SKSpriteNode()
+    var catSport = SKLabelNode()
+    var catSportShadow = SKLabelNode()
+    var startLabel = SKLabelNode()
+    var startLabelShadow = SKLabelNode()
+    var firstMouse = SKSpriteNode()
+    var firstCat = SKSpriteNode()
+    
+    // end block
+    
     override func didMoveToView(view: SKView) {
         
         var alertSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("escapedMouse", ofType: "mp3")!)
@@ -58,43 +71,43 @@ class GameScene: SKScene {
         
         self.backgroundColor = SKColor.whiteColor()
         
-        var bottomRight = SKSpriteNode(imageNamed: "bottomRight")
+        bottomRight = SKSpriteNode(imageNamed: "bottomRight")
         bottomRight.anchorPoint = CGPoint(x: 1, y: 0)
         bottomRight.position = CGPoint(x: sceneSize.x, y: 0)
         bottomRight.name = "bottomRight"
         self.addChild(bottomRight)
         
         
-        
-        var catSport = SKLabelNode()
         catSport.text = appName
         catSport.fontColor = SKColor(red: CGFloat(164/255.0), green: CGFloat(85/255.0), blue: CGFloat(164/255.0), alpha: 1)
         catSport.fontSize = 90;
         catSport.fontName = commonFont
         catSport.position = CGPoint(x: 640, y: 570)
         
-        self.addChild(LabelWithShadow().getLabelWithShadow(catSport))
+        catSportShadow = LabelWithShadow().getLabelWithShadow(catSport)
+        
+        self.addChild(catSportShadow)
         self.addChild(catSport)
         
-        var startLabel = SKLabelNode()
         startLabel.text = "START"
         startLabel.fontColor = SKColor(red: CGFloat(250/255.0), green: CGFloat(165/255.0), blue: CGFloat(70/255.0), alpha: 1)
         startLabel.fontSize = 80;
         startLabel.fontName = commonFont
         startLabel.position = CGPoint(x: 640, y: 390)
+        startLabel.name = "startLabel"
 
-        var startLabelShadow = LabelWithShadow().getLabelWithShadow(startLabel)
+        startLabelShadow = LabelWithShadow().getLabelWithShadow(startLabel)
         
         self.addChild(startLabelShadow)
         self.addChild(startLabel)
         
-        var firstMouse = SKSpriteNode(imageNamed: "firstMouse")
+        firstMouse = SKSpriteNode(imageNamed: "firstMouse")
         firstMouse.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         firstMouse.position = CGPoint(x: sceneSize.y - 115, y: 175)
         firstMouse.name = "firstMouse"
         self.addChild(firstMouse)
         
-        var firstCat = SKSpriteNode(imageNamed: "firstCat")
+        firstCat = SKSpriteNode(imageNamed: "firstCat")
         firstCat.anchorPoint = CGPoint(x: 0, y: 1)
         firstCat.position = CGPoint(x: 0, y: sceneSize.y)
         firstCat.name = "firstCat"
@@ -110,8 +123,25 @@ class GameScene: SKScene {
         
     }
     
+    func hideFirstScreen()
+    {
+        
+        var fadeAction = SKAction.fadeAlphaTo(0, duration: 0.3)
+        
+        bottomRight.runAction(fadeAction)
+        catSport.runAction(fadeAction)
+        catSportShadow.runAction(fadeAction)
+        startLabel.runAction(fadeAction)
+        startLabelShadow.runAction(fadeAction)
+        firstMouse.runAction(fadeAction)
+        firstCat.runAction(fadeAction, showSecondScreen)
+    }
+    
     func showSecondScreen()
     {
+        
+        self.removeAllChildren()
+        
         drawBackground()
         drawGameName()
         drawScore()
@@ -220,6 +250,11 @@ class GameScene: SKScene {
                         self.childNodeWithName("mouse")?.runAction(repeatAction)
                         self.childNodeWithName("mouse")?.runAction(sequence, startMoving)
                     }
+                }
+                
+                if(node.name == "startLabel")
+                {
+                    hideFirstScreen()
                 }
             }
         }
