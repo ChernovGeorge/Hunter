@@ -189,6 +189,7 @@ class GameScene: SKScene {
     
     
     // is user touch close to mouse
+    // TODO: change the logic of distanse calculation, use sqrt in order to find the distanse
     func isTouchCloseToMouse(mousePosition: CGPoint, touchPosition: CGPoint) -> Bool
     {
         var x = abs(mousePosition.x - touchPosition.x)
@@ -226,6 +227,7 @@ class GameScene: SKScene {
                 {
                     if(!isFirstScreen)
                     {
+                        // TODO: to investigate: use runAction:withKey, it removes the existing action automaticaly
                         self.childNodeWithName("mouse")?.removeAllActions()
                     
                         var pathwayCreator = PathwayCreator(startPoint: holeLocation, countOfPathes: 8)
