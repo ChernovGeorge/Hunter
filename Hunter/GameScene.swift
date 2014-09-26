@@ -127,20 +127,20 @@ class GameScene: SKScene {
     {
         
         var fadeAction = SKAction.fadeAlphaTo(0, duration: 0.3)
+        var removeAction = SKAction.removeFromParent()
+        var fadeAndRenoveSeq = SKAction.sequence([fadeAction, removeAction])
         
-        bottomRight.runAction(fadeAction)
-        catSport.runAction(fadeAction)
-        catSportShadow.runAction(fadeAction)
-        startLabel.runAction(fadeAction)
-        startLabelShadow.runAction(fadeAction)
-        firstMouse.runAction(fadeAction)
-        firstCat.runAction(fadeAction, showSecondScreen)
+        bottomRight.runAction(fadeAndRenoveSeq)
+        catSport.runAction(fadeAndRenoveSeq)
+        catSportShadow.runAction(fadeAndRenoveSeq)
+        startLabel.runAction(fadeAndRenoveSeq)
+        startLabelShadow.runAction(fadeAndRenoveSeq)
+        firstMouse.runAction(fadeAndRenoveSeq)
+        firstCat.runAction(fadeAndRenoveSeq)
     }
     
     func showSecondScreen()
     {
-        
-        self.removeAllChildren()
         
         drawBackground()
         drawGameName()
@@ -244,6 +244,9 @@ class GameScene: SKScene {
                         CGPathMoveToPoint(pathBackToHole, nil, (mousePosition?)!.x, (mousePosition?)!.y)
                         CGPathAddLineToPoint(pathBackToHole, nil, holeLocation.x, holeLocation.y)
                     
+                        // TODO: maybe it will be suitable to use constant speed of the mouse during path, 
+                        // to get it I have to calculate the duration
+                        // it can make the mouse movement more natural
                         var act1 = SKAction.followPath(pathBackToHole, asOffset: false, orientToPath: true, duration: 0.3)
                         var act2 = SKAction.followPath(bp.CGPath, asOffset:false, orientToPath:true, duration: getDuration());
                     
@@ -257,6 +260,7 @@ class GameScene: SKScene {
                 if(node.name == "startLabel")
                 {
                     hideFirstScreen()
+                    showSecondScreen()
                 }
             }
         }
