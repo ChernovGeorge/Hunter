@@ -18,7 +18,7 @@ class GameScene: SKScene {
     var gameScoreLabel = SKLabelNode()
     var gameScoreLabelShadow = SKLabelNode()
     var gameScore = 0
-    
+
     var spriteArray = Array<SKTexture>()
     
     var repeatAction = SKAction()
@@ -46,6 +46,25 @@ class GameScene: SKScene {
     
     // end block
     
+    var backBtnCounter:UInt8 = 0
+    var timer = NSTimer()
+    
+    var holdForSecondsTipLabel = SKLabelNode()
+    var holdForSecondsTipLabelShadow = SKLabelNode()
+    
+    let backBtnTouchDuration:UInt8 = 4
+    
+    var mouse = SKSpriteNode()
+    
+    var gameNameLabel = SKLabelNode()
+    var gameNameLabelShadow = SKLabelNode()
+    
+    var mouseScoreImg = SKSpriteNode()
+    
+    var gameBackBtn = SKLabelNode()
+    
+    var gameBackBtnShadow = SKLabelNode()
+    
     override func didMoveToView(view: SKView) {
         
         var alertSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("escapedMouse", ofType: "mp3")!)
@@ -65,6 +84,7 @@ class GameScene: SKScene {
     
     func showFirstScreen()
     {
+    
         isFirstScreen = true;
         
         drawBackground()
@@ -78,6 +98,7 @@ class GameScene: SKScene {
         self.addChild(bottomRight)
         
         
+        catSport = SKLabelNode()
         catSport.text = appName
         catSport.fontColor = SKColor(red: CGFloat(164/255.0), green: CGFloat(85/255.0), blue: CGFloat(164/255.0), alpha: 1)
         catSport.fontSize = 90;
@@ -89,6 +110,8 @@ class GameScene: SKScene {
         self.addChild(catSportShadow)
         self.addChild(catSport)
         
+        
+        startLabel = SKLabelNode()
         startLabel.text = "START"
         startLabel.fontColor = SKColor(red: CGFloat(250/255.0), green: CGFloat(165/255.0), blue: CGFloat(70/255.0), alpha: 1)
         startLabel.fontSize = 80;
@@ -145,6 +168,7 @@ class GameScene: SKScene {
         drawBackground()
         drawGameName()
         drawScore()
+        drawBackBtn()
         
         spriteArray.append(textureAtlas.textureNamed("M1"))
         spriteArray.append(textureAtlas.textureNamed("M2"))
@@ -154,7 +178,7 @@ class GameScene: SKScene {
         spriteArray.append(textureAtlas.textureNamed("M6"))
         spriteArray.append(textureAtlas.textureNamed("M7"))
         
-        var mouse = SKSpriteNode(texture:spriteArray[0])
+        mouse = SKSpriteNode(texture:spriteArray[0])
         mouse.position = CGPoint(x: 200, y: 200)
         mouse.name = "mouse"
         
@@ -167,6 +191,26 @@ class GameScene: SKScene {
         mouse.runAction(repeatAction);
         
         startMoving()
+    }
+    
+    func hideSecondScreen()
+    {
+        mouse.removeAllActions()
+        mouse.removeFromParent()
+        
+        holdForSecondsTipLabel.removeFromParent()
+        holdForSecondsTipLabelShadow.removeFromParent()
+        
+        gameScoreLabel.removeFromParent()
+        gameScoreLabelShadow.removeFromParent()
+        
+        gameNameLabel.removeFromParent()
+        gameNameLabelShadow.removeFromParent()
+        
+        mouseScoreImg.removeFromParent()
+        
+        gameBackBtn.removeFromParent()
+        gameBackBtnShadow.removeFromParent()
     }
     
     func getDuration() -> NSTimeInterval
@@ -210,8 +254,6 @@ class GameScene: SKScene {
             
             var location = touch.locationInNode(self)
             var node = self.nodeAtPoint(location)
-            
-            println(node.name)
             
             if node.name != nil
             {
@@ -262,8 +304,28 @@ class GameScene: SKScene {
                     hideFirstScreen()
                     showSecondScreen()
                 }
+                
+                if(node.name == "backBtn")
+                {
+                    holdForSecondsTip()
+                    timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("timerTick"), userInfo: nil, repeats: true)
+                }
             }
         }
+    }
+    
+    override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
+        
+        resetBackBtn()
+    }
+    
+    func resetBackBtn()
+    {
+        timer.invalidate()
+        backBtnCounter = 0;
+        
+        holdForSecondsTipLabel.removeFromParent()
+        holdForSecondsTipLabelShadow.removeFromParent()
     }
     
     func mouseEscapedEffectPlay()
@@ -289,15 +351,17 @@ class GameScene: SKScene {
     func drawGameName()
     {
         
-        var gameNameLabel = SKLabelNode();
+        gameNameLabel = SKLabelNode();
         gameNameLabel.fontColor = SKColor(red: CGFloat(164/255.0), green: CGFloat(85/255.0), blue: CGFloat(164/255.0), alpha: 1)
-        gameNameLabel.text = "Mouser"
-        gameNameLabel.fontSize = 60;
+        gameNameLabel.text = "SPORT CAT"
+        gameNameLabel.fontSize = 65;
         gameNameLabel.fontName = commonFont
-        gameNameLabel.position = CGPoint(x: sceneSize.x / 2, y: sceneSize.y - 60)
+        gameNameLabel.position = CGPoint(x: sceneSize.x / 2, y: sceneSize.y - 70)
         gameNameLabel.zPosition = 10;
         
-        self.addChild(LabelWithShadow().getLabelWithShadow(gameNameLabel))
+        gameNameLabelShadow = LabelWithShadow().getLabelWithShadow(gameNameLabel)
+        
+        self.addChild(gameNameLabelShadow)
         self.addChild(gameNameLabel)
     }
     
@@ -307,9 +371,9 @@ class GameScene: SKScene {
         gameScoreLabel = SKLabelNode();
         gameScoreLabel.fontColor = SKColor(red: CGFloat(164/255.0), green: CGFloat(85/255.0), blue: CGFloat(164/255.0), alpha: 1)
         gameScoreLabel.text = "0000"
-        gameScoreLabel.fontSize = 50;
+        gameScoreLabel.fontSize = 45;
         gameScoreLabel.fontName = commonFont
-        gameScoreLabel.position = CGPoint(x: sceneSize.x / 2 + 370, y: sceneSize.y - 60)
+        gameScoreLabel.position = CGPoint(x: sceneSize.x / 2 + 390, y: sceneSize.y - 65)
         gameScoreLabel.zPosition = 10;
         
         gameScoreLabelShadow = LabelWithShadow().getLabelWithShadow(gameScoreLabel)
@@ -317,12 +381,31 @@ class GameScene: SKScene {
         self.addChild(gameScoreLabelShadow)
         self.addChild(gameScoreLabel)
         
-        var mouseScoreImg = SKSpriteNode(imageNamed: "mouseScore");
+        mouseScoreImg = SKSpriteNode(imageNamed: "mouseScore");
         mouseScoreImg.anchorPoint = CGPoint(x: 0, y: 0)
-        mouseScoreImg.position = CGPoint(x: sceneSize.x / 2 + 250, y: sceneSize.y - 61)
+        mouseScoreImg.position = CGPoint(x: sceneSize.x / 2 + 270, y: sceneSize.y - 66)
         mouseScoreImg.zPosition = 10;
         
         self.addChild(mouseScoreImg)
+    }
+    
+    func drawBackBtn()
+    {
+        
+        gameBackBtn = SKLabelNode();
+        gameBackBtn.fontColor = SKColor(red: CGFloat(164/255.0), green: CGFloat(85/255.0), blue: CGFloat(164/255.0), alpha: 1)
+        gameBackBtn.text = "BACK"
+        gameBackBtn.fontSize = 45;
+        gameBackBtn.fontName = commonFont
+        gameBackBtn.position = CGPoint(x: sceneSize.x / 2 - 375, y: sceneSize.y - 65)
+        gameBackBtn.zPosition = 10;
+        gameBackBtn.name = "backBtn"
+        
+        gameBackBtnShadow = LabelWithShadow().getLabelWithShadow(gameBackBtn)
+        
+        self.addChild(gameBackBtnShadow)
+        self.addChild(gameBackBtn)
+
     }
     
     func changeScore()
@@ -363,6 +446,38 @@ class GameScene: SKScene {
         
         gameScoreLabel.text = score
         gameScoreLabelShadow.text = score
+    }
+    
+    func timerTick()
+    {
+        backBtnCounter++
+        
+        holdForSecondsTipLabel.text = "Hold For " + (backBtnTouchDuration - backBtnCounter).description + " Seconds"
+        holdForSecondsTipLabelShadow.text = "Hold For " + (backBtnTouchDuration - backBtnCounter).description + " Seconds"
+        
+        if(backBtnCounter == backBtnTouchDuration)
+        {
+            resetBackBtn()
+            hideSecondScreen()
+            showFirstScreen()
+        }
+    }
+    
+    func holdForSecondsTip()
+    {
+        holdForSecondsTipLabel = SKLabelNode()
+        holdForSecondsTipLabel.fontColor = SKColor(red: CGFloat(164/255.0), green: CGFloat(85/255.0), blue: CGFloat(164/255.0), alpha: 1)
+        holdForSecondsTipLabel.text = "Hold For " + backBtnTouchDuration.description + " Seconds"
+        holdForSecondsTipLabel.fontSize = 25;
+        holdForSecondsTipLabel.fontName = commonFont
+        holdForSecondsTipLabel.position = CGPoint(x: sceneSize.x / 2 - 375, y: sceneSize.y - 100)
+        holdForSecondsTipLabel.zPosition = 10;
+        
+        holdForSecondsTipLabelShadow = LabelWithShadow().getLabelWithShadow(holdForSecondsTipLabel)
+        
+        self.addChild(holdForSecondsTipLabelShadow)
+        self.addChild(holdForSecondsTipLabel)
+        
     }
 
 }

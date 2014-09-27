@@ -42,7 +42,7 @@ class PathwayCreator
             var currentControlPoint = CGPoint(x: getRandomW(), y: getRandomH())
             var currentPoint = CGPoint(x: (lastPoint.x + currentControlPoint.x)/2, y: (lastPoint.y + currentControlPoint.y)/2)
             
-            println(currentPoint.x.description + "/" + currentPoint.y.description)
+            //println(currentPoint.x.description + "/" + currentPoint.y.description)
             
             path.addQuadCurveToPoint(currentPoint, controlPoint: lastControlPoint)
             
