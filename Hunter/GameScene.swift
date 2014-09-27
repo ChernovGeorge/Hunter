@@ -32,6 +32,7 @@ class GameScene: SKScene {
     let holeLocation = CGPoint(x: 1200, y: 600)
     let appName = "Sport Cat"
     let commonFont = "Helvetica Neue Light"
+    let commonBoldFont = "Helvetica Neue"
     
     
     // first screen elements
@@ -52,7 +53,7 @@ class GameScene: SKScene {
     var holdForSecondsTipLabel = SKLabelNode()
     var holdForSecondsTipLabelShadow = SKLabelNode()
     
-    let backBtnTouchDuration:UInt8 = 4
+    let backBtnTouchDuration:UInt8 = 3
     
     var mouse = SKSpriteNode()
     
@@ -91,7 +92,7 @@ class GameScene: SKScene {
         
         self.backgroundColor = SKColor.whiteColor()
         
-        bottomRight = SKSpriteNode(imageNamed: "bottomRight")
+        bottomRight = SKSpriteNode(imageNamed: "bottomRightCorner")
         bottomRight.anchorPoint = CGPoint(x: 1, y: 0)
         bottomRight.position = CGPoint(x: sceneSize.x, y: 0)
         bottomRight.name = "bottomRight"
@@ -124,13 +125,13 @@ class GameScene: SKScene {
         self.addChild(startLabelShadow)
         self.addChild(startLabel)
         
-        firstMouse = SKSpriteNode(imageNamed: "firstMouse")
+        firstMouse = SKSpriteNode(imageNamed: "mouseOrigamiBig")
         firstMouse.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        firstMouse.position = CGPoint(x: sceneSize.y - 115, y: 175)
+        firstMouse.position = CGPoint(x: sceneSize.y - 117, y: 175)
         firstMouse.name = "firstMouse"
         self.addChild(firstMouse)
         
-        firstCat = SKSpriteNode(imageNamed: "firstCat")
+        firstCat = SKSpriteNode(imageNamed: "catOrigami")
         firstCat.anchorPoint = CGPoint(x: 0, y: 1)
         firstCat.position = CGPoint(x: 0, y: sceneSize.y)
         firstCat.name = "firstCat"
@@ -177,6 +178,7 @@ class GameScene: SKScene {
         spriteArray.append(textureAtlas.textureNamed("M5"))
         spriteArray.append(textureAtlas.textureNamed("M6"))
         spriteArray.append(textureAtlas.textureNamed("M7"))
+        spriteArray.append(textureAtlas.textureNamed("M8"))
         
         mouse = SKSpriteNode(texture:spriteArray[0])
         mouse.position = CGPoint(x: 200, y: 200)
@@ -341,7 +343,7 @@ class GameScene: SKScene {
     
     func drawBackground()
     {
-        var background = SKSpriteNode(imageNamed: "gameBackground")
+        var background = SKSpriteNode(imageNamed: "background")
         background.anchorPoint = CGPoint(x: 0, y: 0)
         background.name = "bg"
         self.addChild(background)
@@ -352,7 +354,7 @@ class GameScene: SKScene {
     {
         
         gameNameLabel = SKLabelNode();
-        gameNameLabel.fontColor = SKColor(red: CGFloat(164/255.0), green: CGFloat(85/255.0), blue: CGFloat(164/255.0), alpha: 1)
+        gameNameLabel.fontColor = SKColor(red: CGFloat(250/255.0), green: CGFloat(165/255.0), blue: CGFloat(70/255.0), alpha: 1)
         gameNameLabel.text = "SPORT CAT"
         gameNameLabel.fontSize = 65;
         gameNameLabel.fontName = commonFont
