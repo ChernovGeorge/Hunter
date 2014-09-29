@@ -11,28 +11,26 @@ import AVFoundation
 
 class GameScene: SKScene {
     
+    // the location of the hole, the place where the mouse go from
+    let holeLocation = CGPoint(x: 1200, y: 600)
+    let appName = "Sports Cat"
+    let commonFont = "Helvetica Neue Light"
+    let commonBoldFont = "Helvetica Neue"
+    
+    let backBtnTouchDuration:UInt8 = 3
+    
     // size of the scene, for iPad = 768 / 1024
     var sceneSize: CGPoint = CGPoint()
-    let textureAtlas = SKTextureAtlas(named:"mouse.atlas")
     
     var gameScoreLabel = AdvancedLabel()
     var gameScore = 0
 
-    var spriteArray = Array<SKTexture>()
     
-    var repeatAction = SKAction()
     var animateAction = SKAction()
-    
     var audioPlayer = AVAudioPlayer()
     
     var isFirstScreen = true;
-    
-    // the location of the hole, the place where the mouse go from
-    let holeLocation = CGPoint(x: 1200, y: 600)
-    let appName = "Sport Cat"
-    let commonFont = "Helvetica Neue Light"
-    let commonBoldFont = "Helvetica Neue"
-    
+
     
     // first screen elements
     
@@ -47,17 +45,14 @@ class GameScene: SKScene {
     var backBtnCounter:UInt8 = 0
     var timer = NSTimer()
     
+    var mouse = Mouse()
+    
     var holdForSecondsTipLabel = AdvancedLabel()
-    
-    let backBtnTouchDuration:UInt8 = 3
-    
-    var mouse = SKSpriteNode()
-    
     var gameNameLabel = AdvancedLabel()
+    var gameBackBtn = AdvancedLabel()
     
     var mouseScoreImg = SKSpriteNode()
     
-    var gameBackBtn = AdvancedLabel()
     
     override func didMoveToView(view: SKView) {
         
@@ -73,7 +68,7 @@ class GameScene: SKScene {
         
         sceneSize = CGPoint(x: view.bounds.size.width, y: view.bounds.size.height)
         showFirstScreen()
-        //showSecondScreen()
+        audioPlayer.prepareToPlay()
     }
     
     func showFirstScreen()
@@ -148,33 +143,17 @@ class GameScene: SKScene {
     
     func showSecondScreen()
     {
+        isFirstScreen = false;
         
         drawBackground()
         drawGameName()
         drawScore()
         drawBackBtn()
-        
-        spriteArray.append(textureAtlas.textureNamed("M1"))
-        spriteArray.append(textureAtlas.textureNamed("M2"))
-        spriteArray.append(textureAtlas.textureNamed("M3"))
-        spriteArray.append(textureAtlas.textureNamed("M4"))
-        spriteArray.append(textureAtlas.textureNamed("M5"))
-        spriteArray.append(textureAtlas.textureNamed("M6"))
-        spriteArray.append(textureAtlas.textureNamed("M7"))
-        spriteArray.append(textureAtlas.textureNamed("M8"))
-        
-        mouse = SKSpriteNode(texture:spriteArray[0])
-        mouse.position = CGPoint(x: 200, y: 200)
+
         mouse.name = "mouse"
-        
-        
         self.addChild(mouse)
         
-        
-        animateAction = SKAction.animateWithTextures(spriteArray, timePerFrame: 0.10);
-        repeatAction = SKAction.repeatActionForever(animateAction);
-        mouse.runAction(repeatAction);
-        
+        mouse.startTextureChangingAction()
         startMoving()
     }
     
@@ -202,12 +181,10 @@ class GameScene: SKScene {
         var bp:UIBezierPath = pathwayCreator.GetPath()
         
         var duration = getDuration()
-        println("d = " + duration.description)
         
-        var act = SKAction.followPath(bp.CGPath, asOffset:false, orientToPath:true, duration: duration);
-        self.childNodeWithName("mouse")?.runAction(act, startMoving)
+        var mouseMoveAction = SKAction.followPath(bp.CGPath, asOffset:false, orientToPath:true, duration: duration);
+        self.childNodeWithName("mouse")?.runAction(mouseMoveAction, startMoving)
     }
-    
     
     // is user touch close to mouse
     // TODO: change the logic of distanse calculation, use sqrt in order to find the distanse
@@ -223,7 +200,6 @@ class GameScene: SKScene {
         
         return false;
     }
-    
 
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
         
@@ -246,33 +222,36 @@ class GameScene: SKScene {
                 {
                     if(!isFirstScreen)
                     {
-                        // TODO: to investigate: use runAction:withKey, it removes the existing action automaticaly
-                        self.childNodeWithName("mouse")?.removeAllActions()
-                    
-                        var pathwayCreator = PathwayCreator(startPoint: holeLocation, countOfPathes: 8)
-                        var bp:UIBezierPath = pathwayCreator.GetPath()
-                    
-                        var mousePosition = self.childNodeWithName("mouse")?.position;
-                    
+                        var mouseNode = self.childNodeWithName("mouse")
+                        var mousePosition = mouseNode?.position;
+                        
                         if(isTouchCloseToMouse(mousePosition!, touchPosition:location))
                         {
                             mouseEscapedEffectPlay()
+                        
+                            var mouseNode = self.childNodeWithName("mouse")
+                            
+                            // TODO: to investigate: use runAction:withKey, it removes the existing action automaticaly
+                            mouseNode?.removeAllActions()
+                            
+                            mouse.startTextureChangingAction()
+                        
+                            var pathwayCreator = PathwayCreator(startPoint: holeLocation, countOfPathes: 8)
+                            var bp:UIBezierPath = pathwayCreator.GetPath()
+                        
+                            var pathBackToHole = CGPathCreateMutable();
+                            CGPathMoveToPoint(pathBackToHole, nil, (mousePosition?)!.x, (mousePosition?)!.y)
+                            CGPathAddLineToPoint(pathBackToHole, nil, holeLocation.x, holeLocation.y)
+                        
+                            // TODO: maybe it will be suitable to use constant speed of the mouse during path, 
+                            // to get it I have to calculate the duration
+                            // it can make the mouse movement more natural
+                            var act1 = SKAction.followPath(pathBackToHole, asOffset: false, orientToPath: true, duration: 0.3)
+                            var act2 = SKAction.followPath(bp.CGPath, asOffset:false, orientToPath:true, duration: getDuration());
+                        
+                            var sequence = SKAction.sequence([act1, act2])
+                            mouseNode?.runAction(sequence, startMoving)
                         }
-                    
-                        var pathBackToHole = CGPathCreateMutable();
-                        CGPathMoveToPoint(pathBackToHole, nil, (mousePosition?)!.x, (mousePosition?)!.y)
-                        CGPathAddLineToPoint(pathBackToHole, nil, holeLocation.x, holeLocation.y)
-                    
-                        // TODO: maybe it will be suitable to use constant speed of the mouse during path, 
-                        // to get it I have to calculate the duration
-                        // it can make the mouse movement more natural
-                        var act1 = SKAction.followPath(pathBackToHole, asOffset: false, orientToPath: true, duration: 0.3)
-                        var act2 = SKAction.followPath(bp.CGPath, asOffset:false, orientToPath:true, duration: getDuration());
-                    
-                        var sequence = SKAction.sequence([act1, act2])
-                    
-                        self.childNodeWithName("mouse")?.runAction(repeatAction)
-                        self.childNodeWithName("mouse")?.runAction(sequence, startMoving)
                     }
                 }
                 
@@ -306,7 +285,6 @@ class GameScene: SKScene {
     
     func mouseEscapedEffectPlay()
     {
-        audioPlayer.prepareToPlay()
         audioPlayer.play()
     }
     
@@ -327,7 +305,7 @@ class GameScene: SKScene {
     func drawGameName()
     {
         gameNameLabel = AdvancedLabel()
-        gameNameLabel.text = "SPORT CAT"
+        gameNameLabel.text = "SPORTS CAT"
         gameNameLabel.fontColor = SKColor(red: CGFloat(250/255.0), green: CGFloat(165/255.0), blue: CGFloat(70/255.0), alpha: 1)
         gameNameLabel.fontSize = 65;
         gameNameLabel.position = CGPoint(x: sceneSize.x / 2, y: sceneSize.y - 70)
@@ -410,7 +388,7 @@ class GameScene: SKScene {
     {
         backBtnCounter++
         
-        holdForSecondsTipLabel.changeText("Hold For " + (backBtnTouchDuration - backBtnCounter).description + " Seconds")
+        holdForSecondsTipLabel.changeText("Hold for " + (backBtnTouchDuration - backBtnCounter).description + " " +  ((backBtnTouchDuration - backBtnCounter) == 1 ?  "second" : "seconds"))
         
         if(backBtnCounter == backBtnTouchDuration)
         {
@@ -423,7 +401,7 @@ class GameScene: SKScene {
     func holdForSecondsTip()
     {
         holdForSecondsTipLabel = AdvancedLabel()
-        holdForSecondsTipLabel.text = "Hold For " + backBtnTouchDuration.description + " Seconds"
+        holdForSecondsTipLabel.text = "Hold for " + backBtnTouchDuration.description + " seconds"
         holdForSecondsTipLabel.fontSize = 25;
         holdForSecondsTipLabel.position = CGPoint(x: sceneSize.x / 2 - 375, y: sceneSize.y - 100)
 

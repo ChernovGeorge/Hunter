@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A20C5FD019D85BB200B56E64 /* Mouse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20C5FCF19D85BB200B56E64 /* Mouse.swift */; };
+		A20C5FDA19D9DC1C00B56E64 /* mouse.atlas in Resources */ = {isa = PBXBuildFile; fileRef = A20C5FD919D9DC1C00B56E64 /* mouse.atlas */; };
 		A24654C219B3711C007738AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24654C119B3711C007738AB /* AppDelegate.swift */; };
 		A24654C419B3711C007738AB /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = A24654C319B3711C007738AB /* GameScene.sks */; };
 		A24654C619B3711C007738AB /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24654C519B3711C007738AB /* GameScene.swift */; };
@@ -26,7 +28,6 @@
 		A278E89119D7391A0055DB3C /* catOrigami@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A278E88F19D7391A0055DB3C /* catOrigami@2x.png */; };
 		A278E89419D73B1C0055DB3C /* mouseOrigamiBig.png in Resources */ = {isa = PBXBuildFile; fileRef = A278E89219D73B1C0055DB3C /* mouseOrigamiBig.png */; };
 		A278E89519D73B1C0055DB3C /* mouseOrigamiBig@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A278E89319D73B1C0055DB3C /* mouseOrigamiBig@2x.png */; };
-		A278E89919D741EF0055DB3C /* mouse.atlas in Resources */ = {isa = PBXBuildFile; fileRef = A278E89819D741EF0055DB3C /* mouse.atlas */; };
 		A278E89B19D811400055DB3C /* AdvancedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A278E89A19D811400055DB3C /* AdvancedLabel.swift */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A20C5FCF19D85BB200B56E64 /* Mouse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mouse.swift; sourceTree = "<group>"; };
+		A20C5FD919D9DC1C00B56E64 /* mouse.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = mouse.atlas; sourceTree = "<group>"; };
 		A24654BC19B3711C007738AB /* Hunter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hunter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A24654C019B3711C007738AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A24654C119B3711C007738AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -64,7 +67,6 @@
 		A278E88F19D7391A0055DB3C /* catOrigami@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "catOrigami@2x.png"; sourceTree = "<group>"; };
 		A278E89219D73B1C0055DB3C /* mouseOrigamiBig.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mouseOrigamiBig.png; sourceTree = "<group>"; };
 		A278E89319D73B1C0055DB3C /* mouseOrigamiBig@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mouseOrigamiBig@2x.png"; sourceTree = "<group>"; };
-		A278E89819D741EF0055DB3C /* mouse.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = mouse.atlas; sourceTree = "<group>"; };
 		A278E89A19D811400055DB3C /* AdvancedLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvancedLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -107,7 +109,7 @@
 		A24654BE19B3711C007738AB /* Hunter */ = {
 			isa = PBXGroup;
 			children = (
-				A278E89819D741EF0055DB3C /* mouse.atlas */,
+				A20C5FD919D9DC1C00B56E64 /* mouse.atlas */,
 				A258316919D0736700502748 /* Sounds */,
 				A24654ED19B4F06B007738AB /* PathwayCreator.swift */,
 				A24654E219B37672007738AB /* Images */,
@@ -119,6 +121,7 @@
 				A24654CC19B3711C007738AB /* Images.xcassets */,
 				A24654BF19B3711C007738AB /* Supporting Files */,
 				A278E89A19D811400055DB3C /* AdvancedLabel.swift */,
+				A20C5FCF19D85BB200B56E64 /* Mouse.swift */,
 			);
 			path = Hunter;
 			sourceTree = "<group>";
@@ -254,7 +257,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A278E88119D734F90055DB3C /* bottomRightCorner.png in Resources */,
-				A278E89919D741EF0055DB3C /* mouse.atlas in Resources */,
+				A20C5FDA19D9DC1C00B56E64 /* mouse.atlas in Resources */,
 				A24654CD19B3711C007738AB /* Images.xcassets in Resources */,
 				A278E89119D7391A0055DB3C /* catOrigami@2x.png in Resources */,
 				A278E89519D73B1C0055DB3C /* mouseOrigamiBig@2x.png in Resources */,
@@ -286,6 +289,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A24654C619B3711C007738AB /* GameScene.swift in Sources */,
+				A20C5FD019D85BB200B56E64 /* Mouse.swift in Sources */,
 				A24654EE19B4F06B007738AB /* PathwayCreator.swift in Sources */,
 				A278E89B19D811400055DB3C /* AdvancedLabel.swift in Sources */,
 				A24654C819B3711C007738AB /* GameViewController.swift in Sources */,
