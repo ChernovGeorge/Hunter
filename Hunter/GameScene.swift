@@ -13,8 +13,7 @@ class GameScene: SKScene {
     
     // the location of the hole, the place where the mouse go from
     let holeLocation = CGPoint(x: 1200, y: 600)
-    let appName = "Sports Cat"
-    let commonFont = "Helvetica Neue Light"
+    let appName = "SportsCat"
     let commonBoldFont = "Helvetica Neue"
     
     let backBtnTouchDuration:UInt8 = 3
@@ -305,7 +304,7 @@ class GameScene: SKScene {
     func drawGameName()
     {
         gameNameLabel = AdvancedLabel()
-        gameNameLabel.text = "SPORTS CAT"
+        gameNameLabel.text = appName
         gameNameLabel.fontColor = SKColor(red: CGFloat(250/255.0), green: CGFloat(165/255.0), blue: CGFloat(70/255.0), alpha: 1)
         gameNameLabel.fontSize = 65;
         gameNameLabel.position = CGPoint(x: sceneSize.x / 2, y: sceneSize.y - 70)
@@ -337,7 +336,7 @@ class GameScene: SKScene {
     {
         
         gameBackBtn = AdvancedLabel()
-        gameBackBtn.text = "BACK"
+        gameBackBtn.text = "Back"
         gameBackBtn.fontSize = 45;
         gameBackBtn.position = CGPoint(x: sceneSize.x / 2 - 375, y: sceneSize.y - 65)
         gameBackBtn.name = "backBtn"
