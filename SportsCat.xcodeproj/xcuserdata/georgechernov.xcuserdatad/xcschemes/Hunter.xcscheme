@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A24654BB19B3711C007738AB"
-               BuildableName = "Hunter.app"
-               BlueprintName = "Hunter"
-               ReferencedContainer = "container:Hunter.xcodeproj">
+               BuildableName = "SportsCat.app"
+               BlueprintName = "SportsCat"
+               ReferencedContainer = "container:SportsCat.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A24654D119B3711C007738AB"
-               BuildableName = "HunterTests.xctest"
-               BlueprintName = "HunterTests"
-               ReferencedContainer = "container:Hunter.xcodeproj">
+               BuildableName = "SportsCatTests.xctest"
+               BlueprintName = "SportsCatTests"
+               ReferencedContainer = "container:SportsCat.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A24654BB19B3711C007738AB"
-            BuildableName = "Hunter.app"
-            BlueprintName = "Hunter"
-            ReferencedContainer = "container:Hunter.xcodeproj">
+            BuildableName = "SportsCat.app"
+            BlueprintName = "SportsCat"
+            ReferencedContainer = "container:SportsCat.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A24654BB19B3711C007738AB"
-            BuildableName = "Hunter.app"
-            BlueprintName = "Hunter"
-            ReferencedContainer = "container:Hunter.xcodeproj">
+            BuildableName = "SportsCat.app"
+            BlueprintName = "SportsCat"
+            ReferencedContainer = "container:SportsCat.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -80,9 +80,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A24654BB19B3711C007738AB"
-            BuildableName = "Hunter.app"
-            BlueprintName = "Hunter"
-            ReferencedContainer = "container:Hunter.xcodeproj">
+            BuildableName = "SportsCat.app"
+            BlueprintName = "SportsCat"
+            ReferencedContainer = "container:SportsCat.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
