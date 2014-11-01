@@ -69,9 +69,11 @@ class GameScene: SKScene {
         showFirstScreen()
         audioPlayer.prepareToPlay()
     }
-    
+
     func showFirstScreen()
     {
+        
+        FlurryAnalytics.log("FirstScreen opened")
     
         isFirstScreen = true;
         
@@ -142,6 +144,9 @@ class GameScene: SKScene {
     
     func showSecondScreen()
     {
+        FlurryAnalytics.log("SecondScreen opened")
+        FlurryAnalytics.timeLogStart("SecondScreen playing")
+        
         isFirstScreen = false;
         
         drawBackground()
@@ -153,11 +158,16 @@ class GameScene: SKScene {
         self.addChild(mouse)
         
         mouse.startTextureChangingAction()
+        
+        //mouse.position = CGPoint(x: 200, y: 200)
+        
         startMoving()
     }
     
     func hideSecondScreen()
     {
+        FlurryAnalytics.timeLogStop("SecondScreen playing")
+        
         mouse.removeAllActions()
         mouse.removeFromParent()
         
@@ -215,6 +225,8 @@ class GameScene: SKScene {
                     
                     gameScore++
                     changeScore()
+                    
+                    FlurryAnalytics.log("Mouse was caught")
                 }
                 
                 if (node.name == "bg")
@@ -250,6 +262,12 @@ class GameScene: SKScene {
                         
                             var sequence = SKAction.sequence([act1, act2])
                             mouseNode?.runAction(sequence, startMoving)
+                            
+                            FlurryAnalytics.log("Touch close to mouse")
+                        }
+                        else
+                        {
+                            FlurryAnalytics.log("Touch background")
                         }
                     }
                 }
@@ -264,6 +282,8 @@ class GameScene: SKScene {
                 {
                     holdForSecondsTip()
                     timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("timerTick"), userInfo: nil, repeats: true)
+                    
+                    FlurryAnalytics.log("Back button touched")
                 }
             }
         }
@@ -394,6 +414,8 @@ class GameScene: SKScene {
             resetBackBtn()
             hideSecondScreen()
             showFirstScreen()
+            
+            FlurryAnalytics.log("Go back to first screen")
         }
     }
     
