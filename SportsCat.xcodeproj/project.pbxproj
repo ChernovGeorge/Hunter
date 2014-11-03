@@ -37,6 +37,7 @@
 		A29250E119E307C3004ED0E0 /* LaunchImage.png in Resources */ = {isa = PBXBuildFile; fileRef = A29250E019E307C3004ED0E0 /* LaunchImage.png */; };
 		A2A76B291A04B24900EF2D24 /* FlurryAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A76B281A04B24900EF2D24 /* FlurryAnalytics.swift */; };
 		A2A76B2B1A04B32A00EF2D24 /* AnalyticsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A76B2A1A04B32A00EF2D24 /* AnalyticsProtocol.swift */; };
+		A2A76B301A04EC3500EF2D24 /* Prey.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A76B2F1A04EC3500EF2D24 /* Prey.swift */; };
 		A2C2A49F19E1BC890073B75C /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = A2C2A49519E1BC890073B75C /* Icon-Small.png */; };
 		A2C2A4A019E1BC890073B75C /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A2C2A49619E1BC890073B75C /* Icon-Small@2x.png */; };
 		A2C2A4A519E1C0470073B75C /* Icon-60.png in Resources */ = {isa = PBXBuildFile; fileRef = A2C2A4A319E1C0470073B75C /* Icon-60.png */; };
@@ -93,6 +94,7 @@
 		A29250E019E307C3004ED0E0 /* LaunchImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LaunchImage.png; sourceTree = "<group>"; };
 		A2A76B281A04B24900EF2D24 /* FlurryAnalytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlurryAnalytics.swift; sourceTree = "<group>"; };
 		A2A76B2A1A04B32A00EF2D24 /* AnalyticsProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsProtocol.swift; sourceTree = "<group>"; };
+		A2A76B2F1A04EC3500EF2D24 /* Prey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Prey.swift; sourceTree = "<group>"; };
 		A2C2A49519E1BC890073B75C /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
 		A2C2A49619E1BC890073B75C /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
 		A2C2A4A319E1C0470073B75C /* Icon-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60.png"; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 		A24654BE19B3711C007738AB /* Hunter */ = {
 			isa = PBXGroup;
 			children = (
+				A2A76B2E1A04EC2600EF2D24 /* Prey */,
 				A2A76B2C1A04B3C400EF2D24 /* Flurry */,
 				A2A76B271A04B20F00EF2D24 /* Analytics */,
 				A218D78719FC2CFA00847132 /* GameScene.sks */,
@@ -160,7 +163,6 @@
 				A24654C719B3711C007738AB /* GameViewController.swift */,
 				A24654C919B3711C007738AB /* Main.storyboard */,
 				A278E89A19D811400055DB3C /* AdvancedLabel.swift */,
-				A20C5FCF19D85BB200B56E64 /* Mouse.swift */,
 				A235A7F619DFD0DE00550019 /* mouse.atlas */,
 				A24654CC19B3711C007738AB /* Images.xcassets */,
 				A24654E219B37672007738AB /* Images */,
@@ -248,6 +250,15 @@
 				A2E9674319FB939100C726E9 /* Flurry.h */,
 			);
 			name = Flurry;
+			sourceTree = "<group>";
+		};
+		A2A76B2E1A04EC2600EF2D24 /* Prey */ = {
+			isa = PBXGroup;
+			children = (
+				A20C5FCF19D85BB200B56E64 /* Mouse.swift */,
+				A2A76B2F1A04EC3500EF2D24 /* Prey.swift */,
+			);
+			name = Prey;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -378,6 +389,7 @@
 				A24654C619B3711C007738AB /* GameScene.swift in Sources */,
 				A20C5FD019D85BB200B56E64 /* Mouse.swift in Sources */,
 				A24654EE19B4F06B007738AB /* PathwayCreator.swift in Sources */,
+				A2A76B301A04EC3500EF2D24 /* Prey.swift in Sources */,
 				A278E89B19D811400055DB3C /* AdvancedLabel.swift in Sources */,
 				A2A76B2B1A04B32A00EF2D24 /* AnalyticsProtocol.swift in Sources */,
 				A24654C819B3711C007738AB /* GameViewController.swift in Sources */,

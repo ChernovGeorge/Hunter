@@ -7,12 +7,10 @@
 //
 
 import SpriteKit
-import AVFoundation
 
 class GameScene: SKScene {
     
-    // the location of the hole, the place where the mouse go from
-    let holeLocation = CGPoint(x: 1200, y: 600)
+
     let appName = "SportsCat"
     let commonBoldFont = "Helvetica Neue"
     
@@ -23,24 +21,18 @@ class GameScene: SKScene {
     
     var gameScoreLabel = AdvancedLabel()
     var gameScore = 0
-
-    
-    var animateAction = SKAction()
-    var audioPlayer = AVAudioPlayer()
     
     var isFirstScreen = true;
 
     
     // first screen elements
-    
     var bottomRight = SKSpriteNode()
     var catSport = AdvancedLabel()
     var startLabel = AdvancedLabel()
     var firstMouse = SKSpriteNode()
     var firstCat = SKSpriteNode()
     
-    // end block
-    
+
     var backBtnCounter:UInt8 = 0
     var timer = NSTimer()
     
@@ -55,19 +47,9 @@ class GameScene: SKScene {
     
     override func didMoveToView(view: SKView) {
         
-        var alertSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("escapedMouse", ofType: "mp3")!)
-        
-        // Removed deprecated use of AVAudioSessionDelegate protocol
-        AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error: nil)
-        AVAudioSession.sharedInstance().setActive(true, error: nil)
-        
-        var error:NSError?
-        audioPlayer = AVAudioPlayer(contentsOfURL: alertSound, error: &error)
-        audioPlayer.volume = 0.3
-        
         sceneSize = CGPoint(x: view.bounds.size.width, y: view.bounds.size.height)
         showFirstScreen()
-        audioPlayer.prepareToPlay()
+
     }
 
     func showFirstScreen()
@@ -158,10 +140,7 @@ class GameScene: SKScene {
         self.addChild(mouse)
         
         mouse.startTextureChangingAction()
-        
-        //mouse.position = CGPoint(x: 200, y: 200)
-        
-        startMoving()
+        mouse.move()
     }
     
     func hideSecondScreen()
@@ -176,23 +155,6 @@ class GameScene: SKScene {
         gameNameLabel.removeFromParent()
         mouseScoreImg.removeFromParent()
         gameBackBtn.removeFromParent()
-    }
-    
-    func getDuration() -> NSTimeInterval
-    {
-        var limitedRandom:Int32 = Int32(arc4random() % UInt32(5));
-        return NSTimeInterval((limitedRandom < 2) ? (limitedRandom + 2): limitedRandom);
-    }
-    
-    func startMoving()
-    {
-        var pathwayCreator = PathwayCreator(startPoint: CGPoint(x: 1000, y: 600), countOfPathes: 8)
-        var bp:UIBezierPath = pathwayCreator.GetPath()
-        
-        var duration = getDuration()
-        
-        var mouseMoveAction = SKAction.followPath(bp.CGPath, asOffset:false, orientToPath:true, duration: duration);
-        self.childNodeWithName("mouse")?.runAction(mouseMoveAction, startMoving)
     }
     
     // is user touch close to mouse
@@ -221,54 +183,18 @@ class GameScene: SKScene {
             {
                 if (node.name == "mouse")
                 {
-                    mouseCaughtEffectPlay()
+                    mouse.preyCaught()
                     
                     gameScore++
                     changeScore()
                     
-                    FlurryAnalytics.log("Mouse was caught")
                 }
                 
                 if (node.name == "bg")
                 {
                     if(!isFirstScreen)
                     {
-                        var mouseNode = self.childNodeWithName("mouse")
-                        var mousePosition = mouseNode?.position;
-                        
-                        if(isTouchCloseToMouse(mousePosition!, touchPosition:location))
-                        {
-                            mouseEscapedEffectPlay()
-                        
-                            var mouseNode = self.childNodeWithName("mouse")
-                            
-                            // TODO: to investigate: use runAction:withKey, it removes the existing action automaticaly
-                            mouseNode?.removeAllActions()
-                            
-                            mouse.startTextureChangingAction()
-                        
-                            var pathwayCreator = PathwayCreator(startPoint: holeLocation, countOfPathes: 8)
-                            var bp:UIBezierPath = pathwayCreator.GetPath()
-                        
-                            var pathBackToHole = CGPathCreateMutable();
-                            CGPathMoveToPoint(pathBackToHole, nil, (mousePosition?)!.x, (mousePosition?)!.y)
-                            CGPathAddLineToPoint(pathBackToHole, nil, holeLocation.x, holeLocation.y)
-                        
-                            // TODO: maybe it will be suitable to use constant speed of the mouse during path, 
-                            // to get it I have to calculate the duration
-                            // it can make the mouse movement more natural
-                            var act1 = SKAction.followPath(pathBackToHole, asOffset: false, orientToPath: true, duration: 0.3)
-                            var act2 = SKAction.followPath(bp.CGPath, asOffset:false, orientToPath:true, duration: getDuration());
-                        
-                            var sequence = SKAction.sequence([act1, act2])
-                            mouseNode?.runAction(sequence, startMoving)
-                            
-                            FlurryAnalytics.log("Touch close to mouse")
-                        }
-                        else
-                        {
-                            FlurryAnalytics.log("Touch background")
-                        }
+                        mouse.failedAttemptToCatch(location)
                     }
                 }
                 
@@ -300,16 +226,6 @@ class GameScene: SKScene {
         backBtnCounter = 0;
         
         holdForSecondsTipLabel.removeFromParent()
-    }
-    
-    func mouseEscapedEffectPlay()
-    {
-        audioPlayer.play()
-    }
-    
-    func mouseCaughtEffectPlay()
-    {
-        self.runAction(SKAction.playSoundFileNamed("caughtMouse.mp3", waitForCompletion: false))
     }
     
     func drawBackground()
