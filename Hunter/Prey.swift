@@ -29,6 +29,8 @@ class Prey: SKSpriteNode
         audioPlayer.volume = 0.3
         
         audioPlayer.prepareToPlay()
+        
+        name = "prey"
     }
     
     override init(texture: SKTexture, color: SKColor, size: CGSize)
@@ -41,5 +43,20 @@ class Prey: SKSpriteNode
         fatalError("init(coder:) has not been implemented")
         super.init(coder: aDecoder)
     }
+    
+    
+    func preyCaught()
+    {
+        fatalError("preyCaught() has to be overrided")
+    }
+    
+    
+    func failedAttemptToCatch(touchPosition:CGPoint)
+    {
+        fatalError("failedAttemptToCatch(touchPosition:CGPoint) has to be overrided")
+    }
+    
+    
+
     
 }

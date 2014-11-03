@@ -36,7 +36,7 @@ class GameScene: SKScene {
     var backBtnCounter:UInt8 = 0
     var timer = NSTimer()
     
-    var mouse = Mouse()
+    var prey:Prey = Prey()
     
     var holdForSecondsTipLabel = AdvancedLabel()
     var gameNameLabel = AdvancedLabel()
@@ -136,40 +136,23 @@ class GameScene: SKScene {
         drawScore()
         drawBackBtn()
 
-        mouse.name = "mouse"
-        self.addChild(mouse)
+        prey = Mouse()
         
-        mouse.startTextureChangingAction()
-        mouse.move()
+        addChild(prey)
     }
     
     func hideSecondScreen()
     {
         FlurryAnalytics.timeLogStop("SecondScreen playing")
         
-        mouse.removeAllActions()
-        mouse.removeFromParent()
+        prey.removeAllActions()
+        prey.removeFromParent()
         
         holdForSecondsTipLabel.removeFromParent()
         gameScoreLabel.removeFromParent()
         gameNameLabel.removeFromParent()
         mouseScoreImg.removeFromParent()
         gameBackBtn.removeFromParent()
-    }
-    
-    // is user touch close to mouse
-    // TODO: change the logic of distanse calculation, use sqrt in order to find the distanse
-    func isTouchCloseToMouse(mousePosition: CGPoint, touchPosition: CGPoint) -> Bool
-    {
-        var x = abs(mousePosition.x - touchPosition.x)
-        var y = abs(mousePosition.y - touchPosition.y)
-        
-        if(x > 0 && x < 200 && y > 0 && y < 200)
-        {
-            return true;
-        }
-        
-        return false;
     }
 
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
@@ -181,9 +164,9 @@ class GameScene: SKScene {
             
             if node.name != nil
             {
-                if (node.name == "mouse")
+                if (node.name == "prey")
                 {
-                    mouse.preyCaught()
+                    prey.preyCaught()
                     
                     gameScore++
                     changeScore()
@@ -194,7 +177,7 @@ class GameScene: SKScene {
                 {
                     if(!isFirstScreen)
                     {
-                        mouse.failedAttemptToCatch(location)
+                        prey.failedAttemptToCatch(location)
                     }
                 }
                 

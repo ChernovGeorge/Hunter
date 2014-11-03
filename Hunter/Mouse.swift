@@ -34,6 +34,9 @@ class Mouse : Prey
         self.texture = mouseTexture
         self.size = CGSize(width: mouseTexture.size().width, height: mouseTexture.size().height)
         self.position = holeLocation
+        
+        move()
+        startTextureChangingAction()
     }
     
     override init(texture: SKTexture, color: SKColor, size: CGSize)
@@ -46,6 +49,32 @@ class Mouse : Prey
         fatalError("init(coder:) has not been implemented")
         super.init(coder: aDecoder)
     }
+    
+    // public
+    
+    override func preyCaught()
+    {
+        mouseCaughtEffectPlay()
+        
+        FlurryAnalytics.log("Pray was caught")
+    }
+    override func failedAttemptToCatch(touchPosition:CGPoint)
+    {
+        if(isTouchCloseToMouse(self.position, touchPosition:touchPosition))
+        {
+            preyEscaped()
+            FlurryAnalytics.log("Touch close to mouse")
+            
+        }
+        else
+        {
+            FlurryAnalytics.log("Touch background")
+        }
+
+    }
+    
+    
+    // private
     
     func startTextureChangingAction()
     {
@@ -64,34 +93,6 @@ class Mouse : Prey
         var mouseMoveAction = SKAction.followPath(bp.CGPath, asOffset:false, orientToPath:true, duration: duration);
         
         runAction(mouseMoveAction, move)
-    }
-    
-    func getDuration() -> NSTimeInterval
-    {
-        var limitedRandom:Int32 = Int32(arc4random() % UInt32(5));
-        return NSTimeInterval((limitedRandom < 2) ? (limitedRandom + 2): limitedRandom);
-    }
-    
-    func preyCaught()
-    {
-        mouseCaughtEffectPlay()
-        
-        FlurryAnalytics.log("Pray was caught")
-    }
-    
-    func failedAttemptToCatch(touchPosition:CGPoint)
-    {
-        if(isTouchCloseToMouse(self.position, touchPosition:touchPosition))
-        {
-            preyEscaped()
-            FlurryAnalytics.log("Touch close to mouse")
-            
-        }
-        else
-        {
-            FlurryAnalytics.log("Touch background")
-        }
-
     }
     
     func preyEscaped()
@@ -143,6 +144,12 @@ class Mouse : Prey
         }
         
         return false;
+    }
+    
+    func getDuration() -> NSTimeInterval
+    {
+        var limitedRandom:Int32 = Int32(arc4random() % UInt32(5));
+        return NSTimeInterval((limitedRandom < 2) ? (limitedRandom + 2): limitedRandom);
     }
 
 
