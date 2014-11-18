@@ -39,6 +39,8 @@
 		A2A76B2B1A04B32A00EF2D24 /* AnalyticsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A76B2A1A04B32A00EF2D24 /* AnalyticsProtocol.swift */; };
 		A2A76B301A04EC3500EF2D24 /* Prey.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A76B2F1A04EC3500EF2D24 /* Prey.swift */; };
 		A2A76B321A07E11A00EF2D24 /* Fly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A76B311A07E11A00EF2D24 /* Fly.swift */; };
+		A2A76B381A08C14A00EF2D24 /* fly.atlas in Resources */ = {isa = PBXBuildFile; fileRef = A2A76B371A08C14A00EF2D24 /* fly.atlas */; };
+		A2A76B3A1A08C76B00EF2D24 /* caughtFly.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A2A76B391A08C76B00EF2D24 /* caughtFly.mp3 */; };
 		A2C2A49F19E1BC890073B75C /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = A2C2A49519E1BC890073B75C /* Icon-Small.png */; };
 		A2C2A4A019E1BC890073B75C /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A2C2A49619E1BC890073B75C /* Icon-Small@2x.png */; };
 		A2C2A4A519E1C0470073B75C /* Icon-60.png in Resources */ = {isa = PBXBuildFile; fileRef = A2C2A4A319E1C0470073B75C /* Icon-60.png */; };
@@ -97,6 +99,8 @@
 		A2A76B2A1A04B32A00EF2D24 /* AnalyticsProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsProtocol.swift; sourceTree = "<group>"; };
 		A2A76B2F1A04EC3500EF2D24 /* Prey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Prey.swift; sourceTree = "<group>"; };
 		A2A76B311A07E11A00EF2D24 /* Fly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fly.swift; sourceTree = "<group>"; };
+		A2A76B371A08C14A00EF2D24 /* fly.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = fly.atlas; sourceTree = "<group>"; };
+		A2A76B391A08C76B00EF2D24 /* caughtFly.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = caughtFly.mp3; sourceTree = "<group>"; };
 		A2C2A49519E1BC890073B75C /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
 		A2C2A49619E1BC890073B75C /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
 		A2C2A4A319E1C0470073B75C /* Icon-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60.png"; sourceTree = "<group>"; };
@@ -165,6 +169,7 @@
 				A24654C719B3711C007738AB /* GameViewController.swift */,
 				A24654C919B3711C007738AB /* Main.storyboard */,
 				A278E89A19D811400055DB3C /* AdvancedLabel.swift */,
+				A2A76B371A08C14A00EF2D24 /* fly.atlas */,
 				A235A7F619DFD0DE00550019 /* mouse.atlas */,
 				A24654CC19B3711C007738AB /* Images.xcassets */,
 				A24654E219B37672007738AB /* Images */,
@@ -230,6 +235,7 @@
 		A258316919D0736700502748 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				A2A76B391A08C76B00EF2D24 /* caughtFly.mp3 */,
 				A258316A19D0742100502748 /* caughtMouse.mp3 */,
 				A258316B19D0742100502748 /* escapedMouse.mp3 */,
 			);
@@ -356,6 +362,7 @@
 				A25B047C19EA7AEF00A46601 /* PortraitLaunchScreen@2x.png in Resources */,
 				A25B047E19EA7B4800A46601 /* LaunchImage@2x.png in Resources */,
 				A235A7F719DFD0DE00550019 /* mouse.atlas in Resources */,
+				A2A76B381A08C14A00EF2D24 /* fly.atlas in Resources */,
 				A25B047A19EA7AE700A46601 /* PortraitLaunchScreen.png in Resources */,
 				A25B048019EA7C8E00A46601 /* Icon-Small-40.png in Resources */,
 				A278E88719D737680055DB3C /* bottomRightCorner@2x.png in Resources */,
@@ -366,6 +373,7 @@
 				A2C2A4A519E1C0470073B75C /* Icon-60.png in Resources */,
 				A258316D19D0742100502748 /* escapedMouse.mp3 in Resources */,
 				A278E87F19D734A60055DB3C /* background.png in Resources */,
+				A2A76B3A1A08C76B00EF2D24 /* caughtFly.mp3 in Resources */,
 				A2C2A4A019E1BC890073B75C /* Icon-Small@2x.png in Resources */,
 				A25B048219EA7C9600A46601 /* Icon-Small-40@2x.png in Resources */,
 				A29250E119E307C3004ED0E0 /* LaunchImage.png in Resources */,

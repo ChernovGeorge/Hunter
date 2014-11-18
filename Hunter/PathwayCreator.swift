@@ -11,19 +11,17 @@ import UIKit
 
 class PathwayCreator
 {
-    var startPoint = CGPoint(x: 1000, y: 600)
     var maxCountOfPathes:Int32 = 0
     
     var maxX:Int32 = 1024
     var maxY:Int32 = 768
     
-    init(startPoint:CGPoint, maxCountOfPathes:Int32)
+    init(maxCountOfPathes:Int32)
     {
-        self.startPoint = startPoint
         self.maxCountOfPathes = maxCountOfPathes
     }
     
-    func GetPath() -> UIBezierPath
+    func GetPath(startPoint:CGPoint) -> (path:UIBezierPath, lastPoint:CGPoint)
     {
         var countOfPathesLocal = getCountOfPathes();
         
@@ -48,9 +46,10 @@ class PathwayCreator
             
         }
         
-        path.addQuadCurveToPoint(startPoint, controlPoint: lastControlPoint)
+        // mouse shouldn't go to the hole
+        //path.addQuadCurveToPoint(startPoint, controlPoint: lastControlPoint)
         
-        return path;
+        return (path, lastPoint);
     }
     
     //Count of Pathes the mouse takes before gets a peace of cheese

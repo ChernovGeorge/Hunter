@@ -16,6 +16,9 @@ class Mouse : Prey
     
     let textureAtlas = SKTextureAtlas(named:"mouse.atlas")
     var spriteArray = Array<SKTexture>()
+    
+    var pathwayCreator = PathwayCreator(maxCountOfPathes: 8)
+    var movingStartPosition = CGPoint(x: 1000, y: 600)
 
     override init() {
         
@@ -85,14 +88,24 @@ class Mouse : Prey
     
     func move()
     {
-        var pathwayCreator = PathwayCreator(startPoint: CGPoint(x: 1000, y: 600), maxCountOfPathes: 8)
-        var bp:UIBezierPath = pathwayCreator.GetPath()
+        
+        
+        var pathWithLastPoint = pathwayCreator.GetPath(movingStartPosition);
+        
+        var bp:UIBezierPath = pathWithLastPoint.path
+        movingStartPosition = pathWithLastPoint.lastPoint
         
         var duration = getDuration()
         
         var mouseMoveAction = SKAction.followPath(bp.CGPath, asOffset:false, orientToPath:true, duration: duration);
+    
         
-        runAction(mouseMoveAction, move)
+        runAction(mouseMoveAction, complexMove)
+    }
+    
+    func complexMove()
+    {
+        runAction(SKAction.waitForDuration(getDuration() / 10 * 3), move)
     }
     
     func preyEscaped()
@@ -105,8 +118,10 @@ class Mouse : Prey
         
         startTextureChangingAction()
         
-        var pathwayCreator = PathwayCreator(startPoint: holeLocation, maxCountOfPathes: 8)
-        var bp:UIBezierPath = pathwayCreator.GetPath()
+        var pathWithLastPoint = pathwayCreator.GetPath(holeLocation);
+        
+        var bp:UIBezierPath = pathWithLastPoint.path
+        movingStartPosition = pathWithLastPoint.lastPoint
         
         var pathBackToHole = CGPathCreateMutable();
         CGPathMoveToPoint(pathBackToHole, nil, self.position.x, self.position.y)
@@ -148,7 +163,7 @@ class Mouse : Prey
     
     func getDuration() -> NSTimeInterval
     {
-        var limitedRandom:Int32 = Int32(arc4random() % UInt32(5));
+        var limitedRandom:Int32 = Int32(arc4random() % UInt32(6));
         return NSTimeInterval((limitedRandom < 2) ? (limitedRandom + 2): limitedRandom);
     }
 
