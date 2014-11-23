@@ -14,7 +14,7 @@ class Mouse : Prey
     // the location of the hole, the place where the mouse go from
     let holeLocation = CGPoint(x: 1200, y: 600)
     
-    let textureAtlas = SKTextureAtlas(named:"mouse.atlas")
+    let textureAtlas = SKTextureAtlas(named:"mouse2.atlas")
     var spriteArray = Array<SKTexture>()
     
     var pathwayCreator = PathwayCreator(maxCountOfPathes: 8)
@@ -81,7 +81,7 @@ class Mouse : Prey
     
     func startTextureChangingAction()
     {
-        var changeTextureAction = SKAction.animateWithTextures(spriteArray, timePerFrame: 0.10);
+        var changeTextureAction = SKAction.animateWithTextures(spriteArray, timePerFrame: 0.12);
         var repeatAction = SKAction.repeatActionForever(changeTextureAction);
         self.runAction(repeatAction);
     }
@@ -105,7 +105,7 @@ class Mouse : Prey
     
     func complexMove()
     {
-        runAction(SKAction.waitForDuration(getDuration() / 10 * 3), move)
+        runAction(SKAction.waitForDuration(getDuration() / 10 * 5), move)
     }
     
     func preyEscaped()
@@ -163,7 +163,7 @@ class Mouse : Prey
     
     func getDuration() -> NSTimeInterval
     {
-        var limitedRandom:Int32 = Int32(arc4random() % UInt32(6));
+        var limitedRandom:Int32 = Int32(arc4random() % UInt32(5));
         return NSTimeInterval((limitedRandom < 2) ? (limitedRandom + 2): limitedRandom);
     }
 
