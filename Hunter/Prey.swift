@@ -50,7 +50,6 @@ class Prey: SKSpriteNode
         fatalError("preyCaught() has to be overrided")
     }
     
-    
     func failedAttemptToCatch(touchPosition:CGPoint)
     {
         fatalError("failedAttemptToCatch(touchPosition:CGPoint) has to be overrided")

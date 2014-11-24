@@ -17,7 +17,7 @@ class Mouse : Prey
     let textureAtlas = SKTextureAtlas(named:"mouse2.atlas")
     var spriteArray = Array<SKTexture>()
     
-    var pathwayCreator = PathwayCreator(maxCountOfPathes: 8)
+    var pathCreator = MousePathCreator(maxCountOfPathes: 8)
     var movingStartPosition = CGPoint(x: 1000, y: 600)
 
     override init() {
@@ -90,7 +90,7 @@ class Mouse : Prey
     {
         
         
-        var pathWithLastPoint = pathwayCreator.GetPath(movingStartPosition);
+        var pathWithLastPoint = pathCreator.GetPath(movingStartPosition);
         
         var bp:UIBezierPath = pathWithLastPoint.path
         movingStartPosition = pathWithLastPoint.lastPoint
@@ -118,7 +118,7 @@ class Mouse : Prey
         
         startTextureChangingAction()
         
-        var pathWithLastPoint = pathwayCreator.GetPath(holeLocation);
+        var pathWithLastPoint = pathCreator.GetPath(holeLocation);
         
         var bp:UIBezierPath = pathWithLastPoint.path
         movingStartPosition = pathWithLastPoint.lastPoint

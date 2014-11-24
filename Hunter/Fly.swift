@@ -16,7 +16,7 @@ class Fly : Prey
     let textureAtlas = SKTextureAtlas(named:"fly")
     var spriteArray = Array<SKTexture>()
     
-    var pathwayCreator = PathwayCreator(maxCountOfPathes: 8)
+    var pathCreator = FlyPathCreator(maxCountOfPathes: 4)
     var movingStartPosition = CGPoint(x: 1000, y: 600)
     
     override init() {
@@ -59,22 +59,22 @@ class Fly : Prey
     
     override func preyCaught()
     {
-        flyCaughtEffectPlay()
-        
-        FlurryAnalytics.log("Pray was caught")
+//        flyCaughtEffectPlay()
+//        
+//        FlurryAnalytics.log("Pray was caught")
     }
     override func failedAttemptToCatch(touchPosition:CGPoint)
     {
-        if(isTouchCloseToMouse(self.position, touchPosition:touchPosition))
-        {
-            preyEscaped()
-            FlurryAnalytics.log("Touch close to mouse")
-            
-        }
-        else
-        {
-            FlurryAnalytics.log("Touch background")
-        }
+//        if(isTouchCloseToMouse(self.position, touchPosition:touchPosition))
+//        {
+//            preyEscaped()
+//            FlurryAnalytics.log("Touch close to mouse")
+//            
+//        }
+//        else
+//        {
+//            FlurryAnalytics.log("Touch background")
+//        }
         
     }
     
@@ -90,7 +90,9 @@ class Fly : Prey
     
     func move()
     {
-        var pathWithLastPoint = pathwayCreator.GetPath(movingStartPosition);
+        
+        
+        var pathWithLastPoint = pathCreator.GetPath(movingStartPosition);
         
         var bp:UIBezierPath = pathWithLastPoint.path
         movingStartPosition = pathWithLastPoint.lastPoint
@@ -98,8 +100,13 @@ class Fly : Prey
         var duration = getDuration()
         
         var mouseMoveAction = SKAction.followPath(bp.CGPath, asOffset:false, orientToPath:true, duration: duration);
+        var waiting = SKAction.waitForDuration(20)
+        var sound = SKAction.playSoundFileNamed("caughtFly.mp3", waitForCompletion: false)
+        var group = SKAction.group([mouseMoveAction, sound])
         
-        runAction(mouseMoveAction, move)
+        var sequence = SKAction.sequence([waiting, group])
+        
+        runAction(sequence, move)
     }
     
     func preyEscaped()
@@ -112,7 +119,7 @@ class Fly : Prey
         
         startTextureChangingAction()
         
-        var pathWithLastPoint = pathwayCreator.GetPath(holeLocation);
+        var pathWithLastPoint = pathCreator.GetPath(holeLocation);
         
         var bp:UIBezierPath = pathWithLastPoint.path
         movingStartPosition = pathWithLastPoint.lastPoint
@@ -132,16 +139,6 @@ class Fly : Prey
         
     }
     
-//    func mouseEscapedEffectPlay()
-//    {
-//        audioPlayer.play()
-//    }
-    
-    func flyCaughtEffectPlay()
-    {
-        self.runAction(SKAction.playSoundFileNamed("caughtFly.mp3", waitForCompletion: false))
-    }
-    
     func isTouchCloseToMouse(mousePosition: CGPoint, touchPosition: CGPoint) -> Bool
     {
         var x = abs(mousePosition.x - touchPosition.x)
@@ -157,8 +154,8 @@ class Fly : Prey
     
     func getDuration() -> NSTimeInterval
     {
-        var limitedRandom:Int32 = Int32(arc4random() % UInt32(8));
-        return NSTimeInterval((limitedRandom < 5) ? (limitedRandom + 5): limitedRandom);
+        var limitedRandom:Int32 = Int32(arc4random() % UInt32(4));
+        return NSTimeInterval((limitedRandom < 2) ? (limitedRandom + 3): limitedRandom);
     }
 
 

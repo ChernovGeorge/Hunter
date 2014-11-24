@@ -37,6 +37,7 @@ class GameScene: SKScene {
     var timer = NSTimer()
     
     var prey:Prey = Prey()
+    var tempPray:Prey = Prey()
     
     var holdForSecondsTipLabel = AdvancedLabel()
     var gameNameLabel = AdvancedLabel()
@@ -137,8 +138,13 @@ class GameScene: SKScene {
         drawBackBtn()
 
         prey = Mouse()
+        tempPray = Fly()
         
         addChild(prey)
+        addChild(tempPray)
+        
+        timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("timerTick"), userInfo: nil, repeats: true)
+        
     }
     
     func hideSecondScreen()
