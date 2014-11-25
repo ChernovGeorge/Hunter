@@ -20,7 +20,7 @@ class MousePathCreator: PathCreator
     
     override func GetPath(startPoint:CGPoint) -> (path:UIBezierPath, lastPoint:CGPoint)
     {
-        var countOfPathesLocal = getCountOfPathes(6, maxCount: maxCountOfPathes);
+        var countOfPathesLocal = getCountOfPathes(4, maxCount: maxCountOfPathes);
         
         var path = UIBezierPath()
         

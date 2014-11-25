@@ -10,7 +10,6 @@ import SpriteKit
 
 class Fly : Prey
 {
-    // the location of the hole, the place where the mouse go from
     let holeLocation = CGPoint(x: 1200, y: 600)
     
     let textureAtlas = SKTextureAtlas(named:"fly")

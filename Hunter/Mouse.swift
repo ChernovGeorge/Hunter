@@ -17,7 +17,7 @@ class Mouse : Prey
     let textureAtlas = SKTextureAtlas(named:"mouse2.atlas")
     var spriteArray = Array<SKTexture>()
     
-    var pathCreator = MousePathCreator(maxCountOfPathes: 8)
+    var pathCreator = MousePathCreator(maxCountOfPathes: 6)
     var movingStartPosition = CGPoint(x: 1000, y: 600)
 
     override init() {
@@ -163,7 +163,7 @@ class Mouse : Prey
     
     func getDuration() -> NSTimeInterval
     {
-        var limitedRandom:Int32 = Int32(arc4random() % UInt32(5));
+        var limitedRandom:Int32 = Int32(arc4random() % UInt32(3));
         return NSTimeInterval((limitedRandom < 2) ? (limitedRandom + 2): limitedRandom);
     }
 

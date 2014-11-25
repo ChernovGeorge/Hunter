@@ -42,6 +42,10 @@ class GameScene: SKScene {
     var holdForSecondsTipLabel = AdvancedLabel()
     var gameNameLabel = AdvancedLabel()
     var gameBackBtn = AdvancedLabel()
+    var gameBackBtnSettings = AdvancedLabel()
+    
+    var leftCogwheel = SKSpriteNode()
+    var rightCogwheel = SKSpriteNode()
     
     var mouseScoreImg = SKSpriteNode()
     
@@ -109,6 +113,23 @@ class GameScene: SKScene {
         
         startLabel.runAction(SKAction.repeatActionForever(sequence))
         
+        leftCogwheel = SKSpriteNode(imageNamed: "cogwheelLeft")
+        leftCogwheel.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        leftCogwheel.position = CGPoint(x: 120, y: 120)
+        leftCogwheel.name = "leftCogwheel"
+        self.addChild(leftCogwheel)
+        
+        rightCogwheel = SKSpriteNode(imageNamed: "cogwheelRight")
+        rightCogwheel.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        rightCogwheel.position = CGPoint(x: 178, y: 95)
+        rightCogwheel.name = "rightCogwheel"
+        self.addChild(rightCogwheel)
+        
+        var cogwheelLeftRotation = SKAction.rotateByAngle(2, duration: 4)
+        var cogwheelRightRotation = SKAction.rotateByAngle(-2, duration: 4)
+        leftCogwheel.runAction(SKAction.repeatActionForever(cogwheelLeftRotation))
+        rightCogwheel.runAction(SKAction.repeatActionForever(cogwheelRightRotation))
+        
     }
     
     func hideFirstScreen()
@@ -122,6 +143,8 @@ class GameScene: SKScene {
         catSport.runAction(fadeAndRenoveSeq)
         startLabel.runAction(fadeAndRenoveSeq)
         firstMouse.runAction(fadeAndRenoveSeq)
+        leftCogwheel.runAction(fadeAndRenoveSeq)
+        rightCogwheel.runAction(fadeAndRenoveSeq)
         firstCat.runAction(fadeAndRenoveSeq)
     }
     
@@ -154,12 +177,29 @@ class GameScene: SKScene {
         prey.removeAllActions()
         prey.removeFromParent()
         
+        tempPray.removeAllActions()
+        tempPray.removeFromParent()
+        
         holdForSecondsTipLabel.removeFromParent()
         gameScoreLabel.removeFromParent()
         gameNameLabel.removeFromParent()
         mouseScoreImg.removeFromParent()
         gameBackBtn.removeFromParent()
     }
+    
+    func showSettingsScreen()
+    {
+        drawBackground()
+        drawSettingTitle()
+        drawBackBtnForSettings()
+    }
+    
+    func hideSettingsScreen()
+    {
+        gameNameLabel.removeFromParent()
+        gameBackBtnSettings.removeFromParent()
+    }
+
 
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
         
@@ -187,6 +227,12 @@ class GameScene: SKScene {
                     }
                 }
                 
+                if(node.name == "leftCogwheel" || node.name == "rightCogwheel")
+                {
+                    hideFirstScreen()
+                    showSettingsScreen()
+                }
+                
                 if(node.name == "startLabel")
                 {
                     hideFirstScreen()
@@ -199,6 +245,12 @@ class GameScene: SKScene {
                     timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("timerTick"), userInfo: nil, repeats: true)
                     
                     FlurryAnalytics.log("Back button touched")
+                }
+                
+                if(node.name == "backBtnSettings")
+                {
+                    hideSettingsScreen()
+                    showFirstScreen()
                 }
             }
         }
@@ -238,6 +290,19 @@ class GameScene: SKScene {
         self.addChild(gameNameLabel)
     }
     
+    func drawSettingTitle()
+    {
+        gameNameLabel = AdvancedLabel()
+        gameNameLabel.text = "Setting"
+        gameNameLabel.fontColor = SKColor(red: CGFloat(250/255.0), green: CGFloat(165/255.0), blue: CGFloat(70/255.0), alpha: 1)
+        gameNameLabel.fontSize = 65;
+        gameNameLabel.position = CGPoint(x: sceneSize.x / 2, y: sceneSize.y - 70)
+        
+        gameNameLabel.create()
+        self.addChild(gameNameLabel)
+    }
+
+    
     func drawScore()
     {
         
@@ -269,6 +334,20 @@ class GameScene: SKScene {
         gameBackBtn.create()
         self.addChild(gameBackBtn)
 
+    }
+    
+    func drawBackBtnForSettings()
+    {
+        
+        gameBackBtnSettings = AdvancedLabel()
+        gameBackBtnSettings.text = "Back"
+        gameBackBtnSettings.fontSize = 45;
+        gameBackBtnSettings.position = CGPoint(x: sceneSize.x / 2 - 375, y: sceneSize.y - 65)
+        gameBackBtnSettings.name = "backBtnSettings"
+        
+        gameBackBtnSettings.create()
+        self.addChild(gameBackBtnSettings)
+        
     }
     
     func changeScore()

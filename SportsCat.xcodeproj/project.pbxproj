@@ -21,6 +21,11 @@
 		A24A0ADC1A21C78A0025522F /* mouse2.atlas in Resources */ = {isa = PBXBuildFile; fileRef = A24A0ADB1A21C78A0025522F /* mouse2.atlas */; };
 		A24A0ADF1A2330D90025522F /* MousePathCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24A0ADE1A2330D90025522F /* MousePathCreator.swift */; };
 		A24A0AE11A2332E30025522F /* FlyPathCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24A0AE01A2332E30025522F /* FlyPathCreator.swift */; };
+		A24A0AE31A249D0D0025522F /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24A0AE21A249D0D0025522F /* AppSettings.swift */; };
+		A24A0AF71A24AEF80025522F /* cogwheelLeft@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A24A0AF41A24AEF80025522F /* cogwheelLeft@2x.png */; };
+		A24A0AF81A24AEF80025522F /* cogwheelLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = A24A0AF51A24AEF80025522F /* cogwheelLeft.png */; };
+		A24A0AF91A24AEF80025522F /* cogwheelRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A24A0AF61A24AEF80025522F /* cogwheelRight@2x.png */; };
+		A24A0AFB1A24AEFF0025522F /* cogwheelRight.png in Resources */ = {isa = PBXBuildFile; fileRef = A24A0AFA1A24AEFF0025522F /* cogwheelRight.png */; };
 		A258316C19D0742100502748 /* caughtMouse.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A258316A19D0742100502748 /* caughtMouse.mp3 */; };
 		A258316D19D0742100502748 /* escapedMouse.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A258316B19D0742100502748 /* escapedMouse.mp3 */; };
 		A25B047A19EA7AE700A46601 /* PortraitLaunchScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = A25B047919EA7AE700A46601 /* PortraitLaunchScreen.png */; };
@@ -83,6 +88,11 @@
 		A24A0ADB1A21C78A0025522F /* mouse2.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = mouse2.atlas; sourceTree = "<group>"; };
 		A24A0ADE1A2330D90025522F /* MousePathCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MousePathCreator.swift; sourceTree = "<group>"; };
 		A24A0AE01A2332E30025522F /* FlyPathCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlyPathCreator.swift; sourceTree = "<group>"; };
+		A24A0AE21A249D0D0025522F /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		A24A0AF41A24AEF80025522F /* cogwheelLeft@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cogwheelLeft@2x.png"; sourceTree = "<group>"; };
+		A24A0AF51A24AEF80025522F /* cogwheelLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cogwheelLeft.png; sourceTree = "<group>"; };
+		A24A0AF61A24AEF80025522F /* cogwheelRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cogwheelRight@2x.png"; sourceTree = "<group>"; };
+		A24A0AFA1A24AEFF0025522F /* cogwheelRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cogwheelRight.png; sourceTree = "<group>"; };
 		A258316A19D0742100502748 /* caughtMouse.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = caughtMouse.mp3; sourceTree = "<group>"; };
 		A258316B19D0742100502748 /* escapedMouse.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = escapedMouse.mp3; sourceTree = "<group>"; };
 		A25B047919EA7AE700A46601 /* PortraitLaunchScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PortraitLaunchScreen.png; sourceTree = "<group>"; };
@@ -173,6 +183,7 @@
 				A24654C719B3711C007738AB /* GameViewController.swift */,
 				A24654C919B3711C007738AB /* Main.storyboard */,
 				A278E89A19D811400055DB3C /* AdvancedLabel.swift */,
+				A24A0AE21A249D0D0025522F /* AppSettings.swift */,
 				A2A76B371A08C14A00EF2D24 /* fly.atlas */,
 				A24654CC19B3711C007738AB /* Images.xcassets */,
 				A24A0ADB1A21C78A0025522F /* mouse2.atlas */,
@@ -223,6 +234,10 @@
 		A24654E219B37672007738AB /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				A24A0AFA1A24AEFF0025522F /* cogwheelRight.png */,
+				A24A0AF41A24AEF80025522F /* cogwheelLeft@2x.png */,
+				A24A0AF51A24AEF80025522F /* cogwheelLeft.png */,
+				A24A0AF61A24AEF80025522F /* cogwheelRight@2x.png */,
 				A278E89219D73B1C0055DB3C /* mouseOrigamiBig.png */,
 				A278E89319D73B1C0055DB3C /* mouseOrigamiBig@2x.png */,
 				A278E88E19D7391A0055DB3C /* catOrigami.png */,
@@ -368,6 +383,7 @@
 				A278E88119D734F90055DB3C /* bottomRightCorner.png in Resources */,
 				A24654CD19B3711C007738AB /* Images.xcassets in Resources */,
 				A235A7F319DFCE7400550019 /* mouseScore@2x.png in Resources */,
+				A24A0AFB1A24AEFF0025522F /* cogwheelRight.png in Resources */,
 				A278E89119D7391A0055DB3C /* catOrigami@2x.png in Resources */,
 				A2C2A4A919E1C1030073B75C /* Icon-76.png in Resources */,
 				A278E89519D73B1C0055DB3C /* mouseOrigamiBig@2x.png in Resources */,
@@ -380,6 +396,8 @@
 				A24A0ADC1A21C78A0025522F /* mouse2.atlas in Resources */,
 				A25B048019EA7C8E00A46601 /* Icon-Small-40.png in Resources */,
 				A278E88719D737680055DB3C /* bottomRightCorner@2x.png in Resources */,
+				A24A0AF81A24AEF80025522F /* cogwheelLeft.png in Resources */,
+				A24A0AF71A24AEF80025522F /* cogwheelLeft@2x.png in Resources */,
 				A278E89019D7391A0055DB3C /* catOrigami.png in Resources */,
 				A258316C19D0742100502748 /* caughtMouse.mp3 in Resources */,
 				A218D78819FC2CFA00847132 /* GameScene.sks in Resources */,
@@ -392,6 +410,7 @@
 				A25B048219EA7C9600A46601 /* Icon-Small-40@2x.png in Resources */,
 				A29250E119E307C3004ED0E0 /* LaunchImage.png in Resources */,
 				A2C2A49F19E1BC890073B75C /* Icon-Small.png in Resources */,
+				A24A0AF91A24AEF80025522F /* cogwheelRight@2x.png in Resources */,
 				A2C2A4AA19E1C1030073B75C /* Icon-76@2x.png in Resources */,
 				A2C2A4A619E1C0470073B75C /* Icon-60@2x.png in Resources */,
 			);
@@ -411,6 +430,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A24A0AE31A249D0D0025522F /* AppSettings.swift in Sources */,
 				A24654C619B3711C007738AB /* GameScene.swift in Sources */,
 				A20C5FD019D85BB200B56E64 /* Mouse.swift in Sources */,
 				A24654EE19B4F06B007738AB /* PathCreator.swift in Sources */,
