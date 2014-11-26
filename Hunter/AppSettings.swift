@@ -12,22 +12,39 @@ class AppSettings
 {
     var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
     
-    func getSpeed() -> Int32
+    class func getSpeed() -> Int32
     {
         var speed = Int32(NSUserDefaults.standardUserDefaults().integerForKey("preyspeed"))
         
-        // if speed is not setted use 3 that is middle speed
         if(speed == 0)
         {
-            speed = 3
+            speed = 2
         }
         
         return speed
     }
     
-    func setSpeed(speed:Int32)
+    class func setSpeed(speed:Int32)
     {
         NSUserDefaults.standardUserDefaults().setInteger(Int(speed), forKey: "preyspeed")
+        NSUserDefaults.standardUserDefaults().synchronize()
+    }
+    
+    class func getBackground() -> Int32
+    {
+        var bgd = Int32(NSUserDefaults.standardUserDefaults().integerForKey("background"))
+        
+        if(bgd == 0)
+        {
+            bgd = 1
+        }
+        
+        return bgd
+    }
+    
+    class func setBackground(bgd:Int32)
+    {
+        NSUserDefaults.standardUserDefaults().setInteger(Int(bgd), forKey: "background")
         NSUserDefaults.standardUserDefaults().synchronize()
     }
 }

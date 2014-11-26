@@ -49,6 +49,21 @@ class GameScene: SKScene {
     
     var mouseScoreImg = SKSpriteNode()
     
+    var labelMouseSpeedSetting = AdvancedLabel()
+    
+    var slowMouseSpeedSetting = SKSpriteNode()
+    var middleMouseSpeedSetting = SKSpriteNode()
+    var fastMouseSpeedSetting = SKSpriteNode()
+    var selectedMouseSpeedSetting = SKSpriteNode()
+    
+    var labelBackgroundSetting = AdvancedLabel()
+    
+    var whiteBackgroundSetting = SKSpriteNode()
+    var greenBackgroundSetting = SKSpriteNode()
+    var yellowBackgroundSetting = SKSpriteNode()
+    var selectedBackgroundSetting = SKSpriteNode()
+    
+    var background = SKSpriteNode(imageNamed: "background")
     
     override func didMoveToView(view: SKView) {
         
@@ -146,6 +161,8 @@ class GameScene: SKScene {
         leftCogwheel.runAction(fadeAndRenoveSeq)
         rightCogwheel.runAction(fadeAndRenoveSeq)
         firstCat.runAction(fadeAndRenoveSeq)
+        
+        background.removeFromParent()
     }
     
     func showSecondScreen()
@@ -155,7 +172,7 @@ class GameScene: SKScene {
         
         isFirstScreen = false;
         
-        drawBackground()
+        drawVaryBackground()
         drawGameName()
         drawScore()
         drawBackBtn()
@@ -185,6 +202,8 @@ class GameScene: SKScene {
         gameNameLabel.removeFromParent()
         mouseScoreImg.removeFromParent()
         gameBackBtn.removeFromParent()
+        
+        background.removeFromParent()
     }
     
     func showSettingsScreen()
@@ -192,12 +211,119 @@ class GameScene: SKScene {
         drawBackground()
         drawSettingTitle()
         drawBackBtnForSettings()
+        
+        labelMouseSpeedSetting = AdvancedLabel()
+        labelMouseSpeedSetting.text = "Set Mouse speed:"
+        labelMouseSpeedSetting.fontColor = SKColor(red: CGFloat(250/255.0), green: CGFloat(165/255.0), blue: CGFloat(70/255.0), alpha: 1)
+        labelMouseSpeedSetting.fontSize = 30;
+        labelMouseSpeedSetting.position = CGPoint(x: 207, y: 580)
+        
+        labelMouseSpeedSetting.create()
+        self.addChild(labelMouseSpeedSetting)
+        
+        slowMouseSpeedSetting = SKSpriteNode(imageNamed: "slowSpeed")
+        slowMouseSpeedSetting.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        slowMouseSpeedSetting.position = CGPoint(x: 170, y: 500)
+        slowMouseSpeedSetting.name = "slowMouseSpeedSetting"
+        self.addChild(slowMouseSpeedSetting)
+        
+        middleMouseSpeedSetting = SKSpriteNode(imageNamed: "middleSpeed")
+        middleMouseSpeedSetting.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        middleMouseSpeedSetting.position = CGPoint(x: 510, y: 500)
+        middleMouseSpeedSetting.name = "middleMouseSpeedSetting"
+        self.addChild(middleMouseSpeedSetting)
+        
+        fastMouseSpeedSetting = SKSpriteNode(imageNamed: "fastSpeed")
+        fastMouseSpeedSetting.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        fastMouseSpeedSetting.position = CGPoint(x: 850, y: 500)
+        fastMouseSpeedSetting.name = "fastMouseSpeedSetting"
+        self.addChild(fastMouseSpeedSetting)
+        
+        selectedMouseSpeedSetting = SKSpriteNode(imageNamed: "selectedOption")
+        selectedMouseSpeedSetting.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        selectedMouseSpeedSetting.name = "selectedMouseSpeedSetting"
+        
+        if(AppSettings.getSpeed() == 1)
+        {
+            selectedMouseSpeedSetting.position = CGPoint(x: 170, y: 460)
+        }
+        else if(AppSettings.getSpeed() == 2)
+        {
+            selectedMouseSpeedSetting.position = CGPoint(x: 510, y: 460)
+        }
+        else
+        {
+            selectedMouseSpeedSetting.position = CGPoint(x: 850, y: 460)
+        }
+        
+        self.addChild(selectedMouseSpeedSetting)
+        
+        labelBackgroundSetting = AdvancedLabel()
+        labelBackgroundSetting.text = "Set background:"
+        labelBackgroundSetting.fontColor = SKColor(red: CGFloat(250/255.0), green: CGFloat(165/255.0), blue: CGFloat(70/255.0), alpha: 1)
+        labelBackgroundSetting.fontSize = 30;
+        labelBackgroundSetting.position = CGPoint(x: 200, y: 340)
+        
+        labelBackgroundSetting.create()
+        self.addChild(labelBackgroundSetting)
+        
+        whiteBackgroundSetting = SKSpriteNode(imageNamed: "backgroundMini1")
+        whiteBackgroundSetting.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        whiteBackgroundSetting.position = CGPoint(x: 170, y: 230)
+        whiteBackgroundSetting.name = "whiteBackgroundSetting"
+        self.addChild(whiteBackgroundSetting)
+        
+        greenBackgroundSetting = SKSpriteNode(imageNamed: "backgroundMini2")
+        greenBackgroundSetting.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        greenBackgroundSetting.position = CGPoint(x: 510, y: 230)
+        greenBackgroundSetting.name = "greenBackgroundSetting"
+        self.addChild(greenBackgroundSetting)
+        
+        yellowBackgroundSetting = SKSpriteNode(imageNamed: "backgroundMini3")
+        yellowBackgroundSetting.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        yellowBackgroundSetting.position = CGPoint(x: 850, y: 230)
+        yellowBackgroundSetting.name = "yellowBackgroundSetting"
+        self.addChild(yellowBackgroundSetting)
+
+        selectedBackgroundSetting = SKSpriteNode(imageNamed: "selectedOption")
+        selectedBackgroundSetting.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        selectedBackgroundSetting.name = "selectedBackgroundSetting"
+        
+        if(AppSettings.getBackground() == 1)
+        {
+            selectedBackgroundSetting.position = CGPoint(x: 170, y: 160)
+        }
+        else if(AppSettings.getBackground() == 2)
+        {
+            selectedBackgroundSetting.position = CGPoint(x: 510, y: 160)
+        }
+        else
+        {
+            selectedBackgroundSetting.position = CGPoint(x: 850, y: 160)
+        }
+        
+        self.addChild(selectedBackgroundSetting)
     }
     
     func hideSettingsScreen()
     {
         gameNameLabel.removeFromParent()
         gameBackBtnSettings.removeFromParent()
+        
+        background.removeFromParent()
+        
+        slowMouseSpeedSetting.removeFromParent()
+        middleMouseSpeedSetting.removeFromParent()
+        fastMouseSpeedSetting.removeFromParent()
+        selectedMouseSpeedSetting.removeFromParent()
+        labelMouseSpeedSetting.removeFromParent()
+        
+        labelBackgroundSetting.removeFromParent()
+        
+        whiteBackgroundSetting.removeFromParent()
+        yellowBackgroundSetting.removeFromParent()
+        greenBackgroundSetting.removeFromParent()
+        selectedBackgroundSetting.removeFromParent()
     }
 
 
@@ -252,6 +378,43 @@ class GameScene: SKScene {
                     hideSettingsScreen()
                     showFirstScreen()
                 }
+                
+                if(node.name == "slowMouseSpeedSetting")
+                {
+                    selectedMouseSpeedSetting.position = CGPoint(x: 170, y: 460)
+                    AppSettings.setSpeed(1)
+                }
+                
+                if(node.name == "middleMouseSpeedSetting")
+                {
+                    selectedMouseSpeedSetting.position = CGPoint(x: 510, y: 460)
+                    AppSettings.setSpeed(2)
+                }
+                
+                if(node.name == "fastMouseSpeedSetting")
+                {
+                    selectedMouseSpeedSetting.position = CGPoint(x: 850, y: 460)
+                    AppSettings.setSpeed(3)
+                }
+                
+                if(node.name == "whiteBackgroundSetting")
+                {
+                    selectedBackgroundSetting.position = CGPoint(x: 170, y: 160)
+                    AppSettings.setBackground(1)
+                }
+                
+                if(node.name == "greenBackgroundSetting")
+                {
+                    selectedBackgroundSetting.position = CGPoint(x: 510, y: 160)
+                    AppSettings.setBackground(2)
+                }
+                
+                if(node.name == "yellowBackgroundSetting")
+                {
+                    selectedBackgroundSetting.position = CGPoint(x: 850, y: 160)
+                    AppSettings.setBackground(3)
+                }
+
             }
         }
     }
@@ -271,7 +434,30 @@ class GameScene: SKScene {
     
     func drawBackground()
     {
-        var background = SKSpriteNode(imageNamed: "background")
+        background = SKSpriteNode(imageNamed: "background")
+        background.anchorPoint = CGPoint(x: 0, y: 0)
+        background.name = "bg"
+        self.addChild(background)
+    }
+    
+    func drawVaryBackground()
+    {
+        var backgroundName = ""
+        
+        if(AppSettings.getBackground() == 1)
+        {
+            backgroundName = "background"
+        }
+        else if(AppSettings.getBackground() == 2)
+        {
+            backgroundName = "background2"
+        }
+        else
+        {
+            backgroundName = "background3"
+        }
+        
+        background = SKSpriteNode(imageNamed: backgroundName)
         background.anchorPoint = CGPoint(x: 0, y: 0)
         background.name = "bg"
         self.addChild(background)
@@ -293,7 +479,7 @@ class GameScene: SKScene {
     func drawSettingTitle()
     {
         gameNameLabel = AdvancedLabel()
-        gameNameLabel.text = "Setting"
+        gameNameLabel.text = "Settings"
         gameNameLabel.fontColor = SKColor(red: CGFloat(250/255.0), green: CGFloat(165/255.0), blue: CGFloat(70/255.0), alpha: 1)
         gameNameLabel.fontSize = 65;
         gameNameLabel.position = CGPoint(x: sceneSize.x / 2, y: sceneSize.y - 70)

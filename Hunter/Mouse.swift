@@ -19,7 +19,7 @@ class Mouse : Prey
     
     var pathCreator = MousePathCreator(maxCountOfPathes: 6)
     var movingStartPosition = CGPoint(x: 1000, y: 600)
-
+    
     override init() {
         
         super.init()
@@ -163,8 +163,22 @@ class Mouse : Prey
     
     func getDuration() -> NSTimeInterval
     {
-        var limitedRandom:Int32 = Int32(arc4random() % UInt32(3));
-        return NSTimeInterval((limitedRandom < 2) ? (limitedRandom + 2): limitedRandom);
+        var duration:Double = 0
+        
+        if(AppSettings.getSpeed() == 1)
+        {
+            duration = 3
+        }
+        else if (AppSettings.getSpeed() == 2)
+        {
+            duration = 1.5
+        }
+        else
+        {
+            duration = 0.5
+        }
+        
+        return NSTimeInterval(duration);
     }
 
 
