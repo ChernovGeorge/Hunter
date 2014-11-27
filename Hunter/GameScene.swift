@@ -69,11 +69,11 @@ class GameScene: SKScene {
         
         sceneSize = CGPoint(x: view.bounds.size.width, y: view.bounds.size.height)
         showFirstScreen()
-
     }
 
     func showFirstScreen()
     {
+        FlurryAnalytics.Holder.currentScreen = 1
         
         gameScore = 0;
         
@@ -172,6 +172,8 @@ class GameScene: SKScene {
     
     func showSecondScreen()
     {
+        FlurryAnalytics.Holder.currentScreen = 2
+        
         FlurryAnalytics.log("SecondScreen opened")
         FlurryAnalytics.timeLogStart("SecondScreen duration",
             params: ["background" : AppSettings.getBackground().description, "speed" : AppSettings.getSpeed().description])
@@ -214,6 +216,8 @@ class GameScene: SKScene {
     
     func showSettingsScreen()
     {
+        FlurryAnalytics.Holder.currentScreen = 3
+        
         FlurryAnalytics.log("SettingsScreen opened")
         FlurryAnalytics.timeLogStart("SettingsScreen duration",
             params: ["background" : AppSettings.getBackground().description, "speed" : AppSettings.getSpeed().description])
@@ -617,5 +621,11 @@ class GameScene: SKScene {
         self.addChild(holdForSecondsTipLabel)
         
     }
+    
+    func screenController()
+    {
+        
+    }
+    
 
 }
