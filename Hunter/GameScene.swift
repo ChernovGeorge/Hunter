@@ -621,11 +621,5 @@ class GameScene: SKScene {
         self.addChild(holdForSecondsTipLabel)
         
     }
-    
-    func screenController()
-    {
-        
-    }
-    
 
 }
