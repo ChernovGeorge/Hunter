@@ -17,7 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication!, didFinishLaunchingWithOptions launchOptions: NSDictionary!) -> Bool {
         // Override point for customization after application launch.
 
-        FlurryAnalytics.start("F8MKRD7YFKNXSHZ7WBJM")
+        FlurryAnalytics.start("F8MKRD7YFKNXSHZ7WBJM") // test key version
+        //FlurryAnalytics.start("3F6GX6W4XX7YYPKX4T53") // production key
         FlurryAnalytics.log("App Started")
         
         return true

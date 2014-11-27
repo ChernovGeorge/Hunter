@@ -28,9 +28,19 @@ class FlurryAnalytics: AnalyticsProtocol
         Flurry.logEvent(eventName, timed: true)
     }
     
+    class func timeLogStart(eventName:String, params:[String: String])
+    {
+        Flurry.logEvent(eventName, withParameters: params, timed: true)
+    }
+    
     class func timeLogStop(eventName:String)
     {
         Flurry.endTimedEvent(eventName, withParameters:nil)
+    }
+    
+    class func timeLogStop(eventName:String, params:[String: String])
+    {
+        Flurry.endTimedEvent(eventName, withParameters:params)
     }
     
 }

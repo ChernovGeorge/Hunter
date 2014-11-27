@@ -75,7 +75,10 @@ class GameScene: SKScene {
     func showFirstScreen()
     {
         
+        gameScore = 0;
+        
         FlurryAnalytics.log("FirstScreen opened")
+        FlurryAnalytics.timeLogStart("FirstScreen duration")
     
         isFirstScreen = true;
         
@@ -150,6 +153,8 @@ class GameScene: SKScene {
     func hideFirstScreen()
     {
         
+        FlurryAnalytics.timeLogStop("FirstScreen duration")
+        
         var fadeAction = SKAction.fadeAlphaTo(0, duration: 0.3)
         var removeAction = SKAction.removeFromParent()
         var fadeAndRenoveSeq = SKAction.sequence([fadeAction, removeAction])
@@ -168,7 +173,8 @@ class GameScene: SKScene {
     func showSecondScreen()
     {
         FlurryAnalytics.log("SecondScreen opened")
-        FlurryAnalytics.timeLogStart("SecondScreen playing")
+        FlurryAnalytics.timeLogStart("SecondScreen duration",
+            params: ["background" : AppSettings.getBackground().description, "speed" : AppSettings.getSpeed().description])
         
         isFirstScreen = false;
         
@@ -189,7 +195,7 @@ class GameScene: SKScene {
     
     func hideSecondScreen()
     {
-        FlurryAnalytics.timeLogStop("SecondScreen playing")
+        FlurryAnalytics.timeLogStop("SecondScreen duration")
         
         prey.removeAllActions()
         prey.removeFromParent()
@@ -208,6 +214,11 @@ class GameScene: SKScene {
     
     func showSettingsScreen()
     {
+        FlurryAnalytics.log("SettingsScreen opened")
+        FlurryAnalytics.timeLogStart("SettingsScreen duration",
+            params: ["background" : AppSettings.getBackground().description, "speed" : AppSettings.getSpeed().description])
+
+        
         drawBackground()
         drawSettingTitle()
         drawBackBtnForSettings()
@@ -307,6 +318,10 @@ class GameScene: SKScene {
     
     func hideSettingsScreen()
     {
+        FlurryAnalytics.timeLogStop("SettingsScreen duration",
+            params: ["background" : AppSettings.getBackground().description, "speed" : AppSettings.getSpeed().description])
+
+        
         gameNameLabel.removeFromParent()
         gameBackBtnSettings.removeFromParent()
         
@@ -377,6 +392,8 @@ class GameScene: SKScene {
                 {
                     hideSettingsScreen()
                     showFirstScreen()
+                    
+                    FlurryAnalytics.log("Back button settings touched")
                 }
                 
                 if(node.name == "slowMouseSpeedSetting")
@@ -585,7 +602,7 @@ class GameScene: SKScene {
             hideSecondScreen()
             showFirstScreen()
             
-            FlurryAnalytics.log("Go back to first screen")
+            //FlurryAnalytics.log("Go back to first screen")
         }
     }
     

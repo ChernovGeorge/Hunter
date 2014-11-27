@@ -17,5 +17,8 @@ protocol AnalyticsProtocol
     
     class func log(eventName:String)
     class func timeLogStart(eventName:String)
+    class func timeLogStart(eventName:String, params:[String: String])
     class func timeLogStop(eventName:String)
+    class func timeLogStop(eventName:String, params:[String: String])
+
 }

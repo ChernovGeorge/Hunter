@@ -58,7 +58,6 @@ class Mouse : Prey
     override func preyCaught()
     {
         mouseCaughtEffectPlay()
-        
         FlurryAnalytics.log("Pray was caught")
     }
     override func failedAttemptToCatch(touchPosition:CGPoint)
@@ -66,7 +65,7 @@ class Mouse : Prey
         if(isTouchCloseToMouse(self.position, touchPosition:touchPosition))
         {
             preyEscaped()
-            FlurryAnalytics.log("Touch close to mouse")
+            FlurryAnalytics.log("Touch close to pray")
             
         }
         else
