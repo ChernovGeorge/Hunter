@@ -29,11 +29,11 @@ class FlyPathCreator : PathCreator
         
         var lastPoint = startFinishPoints.start
         
-        var lastControlPoint = CGPoint(x: getRandomW(), y: getRandomH())
+        var lastControlPoint = getRandomPoint()
         
         for _ in 1...countOfPathesLocal {
             
-            var currentControlPoint = CGPoint(x: getRandomW(), y: getRandomH())
+            var currentControlPoint = getRandomPoint()
             var currentPoint = CGPoint(x: (lastPoint.x + currentControlPoint.x)/2, y: (lastPoint.y + currentControlPoint.y)/2)
             
             path.addQuadCurveToPoint(currentPoint, controlPoint: lastControlPoint)
@@ -52,26 +52,14 @@ class FlyPathCreator : PathCreator
     {
         var isFromRight:Bool = Int32(arc4random() % 2) == 0
         
-        var startX:Int32 = isFromRight ? (maxX + Int32(200)) : -100
-        var startY:Int32 = (Int32(arc4random() % UInt32(maxY + 200))) - 100
+        var startX:Int32 = isFromRight ? (getMaxXY().x + Int32(200)) : -100
+        var startY:Int32 = (Int32(arc4random() % UInt32(getMaxXY().y + 200))) - 100
         var startPoint:CGPoint = CGPoint(x: Int(startX), y: Int(startY))
         
-        var finishX:Int32 = isFromRight ? -100 : (maxX + Int32(200))
-        var finishY:Int32 = (Int32(arc4random() % UInt32(maxY + 200))) - 100
+        var finishX:Int32 = isFromRight ? -100 : (getMaxXY().x + Int32(200))
+        var finishY:Int32 = (Int32(arc4random() % UInt32(getMaxXY().y + 200))) - 100
         var finishPoint:CGPoint = CGPoint(x: Int(finishX), y: Int(finishY))
         
         return (startPoint, finishPoint)
-    }
-    
-    func getRandomH() -> CGFloat
-    {
-        var limitedRandom:Int32 = (Int32(arc4random() % UInt32(maxY + 200))) - 100
-        return CGFloat(limitedRandom < 40 ? (limitedRandom + 40): limitedRandom);
-    }
-    
-    func getRandomW() -> CGFloat
-    {
-        var limitedRandom:Int32 = (Int32(arc4random() % UInt32(maxY + 200))) - 100
-        return CGFloat(limitedRandom < 40 ? (limitedRandom + 40): limitedRandom);
     }
 }

@@ -211,7 +211,6 @@
 			children = (
 				A24A0ADD1A232FB00025522F /* PathCreator */,
 				A2A76B2E1A04EC2600EF2D24 /* Prey */,
-				A2A76B2C1A04B3C400EF2D24 /* Flurry */,
 				A2A76B271A04B20F00EF2D24 /* Analytics */,
 				A218D78719FC2CFA00847132 /* GameScene.sks */,
 				A24654C119B3711C007738AB /* AppDelegate.swift */,
@@ -225,7 +224,6 @@
 				A24A0ADB1A21C78A0025522F /* mouse2.atlas */,
 				A24654E219B37672007738AB /* Images */,
 				A24654BF19B3711C007738AB /* Supporting Files */,
-				A258316919D0736700502748 /* Sounds */,
 			);
 			path = Hunter;
 			sourceTree = "<group>";
@@ -233,6 +231,8 @@
 		A24654BF19B3711C007738AB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A2A76B2C1A04B3C400EF2D24 /* Flurry */,
+				A258316919D0736700502748 /* Sounds */,
 				A25B048119EA7C9600A46601 /* Icon-Small-40@2x.png */,
 				A25B047F19EA7C8E00A46601 /* Icon-Small-40.png */,
 				A25B047919EA7AE700A46601 /* PortraitLaunchScreen.png */,

@@ -29,11 +29,11 @@ class MousePathCreator: PathCreator
         
         var lastPoint = CGPoint(x: startPoint.x, y: startPoint.y)
         
-        var lastControlPoint = CGPoint(x: getRandomW(), y: getRandomH())
+        var lastControlPoint = getRandomPoint()
         
         for _ in 1...countOfPathesLocal {
             
-            var currentControlPoint = CGPoint(x: getRandomW(), y: getRandomH())
+            var currentControlPoint = getRandomPoint()
             var currentPoint = CGPoint(x: (lastPoint.x + currentControlPoint.x)/2, y: (lastPoint.y + currentControlPoint.y)/2)
             
             path.addQuadCurveToPoint(currentPoint, controlPoint: lastControlPoint)
@@ -47,17 +47,5 @@ class MousePathCreator: PathCreator
         //path.addQuadCurveToPoint(startPoint, controlPoint: lastControlPoint)
         
         return (path, lastPoint);
-    }
-    
-    func getRandomH() -> CGFloat
-    {
-        var limitedRandom:Int32 = (Int32(arc4random() % UInt32(maxY + 200))) - 100
-        return CGFloat(limitedRandom < 40 ? (limitedRandom + 40): limitedRandom);
-    }
-    
-    func getRandomW() -> CGFloat
-    {
-        var limitedRandom:Int32 = (Int32(arc4random() % UInt32(maxY + 200))) - 100
-        return CGFloat(limitedRandom < 40 ? (limitedRandom + 40): limitedRandom);
     }
 }
